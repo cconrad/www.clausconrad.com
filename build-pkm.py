@@ -47,6 +47,8 @@ for pathlike_file in [f for f in os.scandir("dendron-personal") if f.is_file() a
 
 # TODO Replace lang.XX tags with flag
 
+# TODO Respect frontmatter "noindex: true"
+
 # TODO In the rendering template, include:
 #   - "link" from frontmatter
 #   - Last updated
