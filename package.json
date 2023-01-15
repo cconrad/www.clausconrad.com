@@ -1,9 +1,0 @@
-{
-  "name": "www.clausconrad.com",
-  "version": "0.1.0",
-  "description": "Build www.clausconrad.com",
-  "dependencies": {
-    "@11ty/eleventy": "^2.0.0-canary.30",
-    "@dendronhq/dendron-cli": "^0.119.0"
-  }
-}
