@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import frontmatter
 
-# Clean up from previous run (for local testing)
+# Local testing: Clean up from previous run
 try:
     shutil.rmtree("dendron-personal")
     shutil.rmtree("cconrad.github.io")
@@ -31,11 +31,17 @@ for pathlike_file in [f for f in os.scandir("dendron-personal") if f.is_file() a
     if post.get("published"):
         shutil.copy(pathlike_file, "cconrad.github.io/content/pkm/")
 
-# grep -L "^published: true$" pkm/*.md | xargs rm
-# # TODO Change Dendron links to regular MD links
+# TODO Change Dendron links to regular MD links
 # # See <https://regexr.com/768ul>
 # # npx dendron exportPod --podId dendron.markdown --wsRoot pkm
-# # Assign layout
+
+# TODO Copy link from frontmatter into body
+
+# TODO Fix broken links
+
+# TODO Copy assets
+
+# # For testing only: Assign layout
 # cat << EOF > ./pkm/pkm.11tydata.js
 # module.exports = function () {
 #   return {
@@ -45,4 +51,6 @@ for pathlike_file in [f for f in os.scandir("dendron-personal") if f.is_file() a
 #   };
 # };
 # EOF
+
+# Final build
 # npx @11ty/eleventy
