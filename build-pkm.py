@@ -45,7 +45,12 @@ for pathlike_file in [f for f in os.scandir("dendron-personal") if f.is_file() a
 
 # TODO Replace broken (unpublished) links with something
 
-# TODO Copy "link" from frontmatter to top of body
+# TODO Replace lang.XX tags with flag
+
+# TODO In the rendering template, include:
+#   - "link" from frontmatter
+#   - Last updated
+#   - (Maybe) Reading time
 
 # TODO Copy assets
 
