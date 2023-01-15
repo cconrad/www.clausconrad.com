@@ -32,12 +32,20 @@ for pathlike_file in [f for f in os.scandir("dendron-personal") if f.is_file() a
         shutil.copy(pathlike_file, "cconrad.github.io/content/pkm/")
 
 # TODO Change Dendron links to regular MD links
-# # See <https://regexr.com/768ul>
-# # npx dendron exportPod --podId dendron.markdown --wsRoot pkm
+# See <https://regexr.com/768ul>
+#
+# Remember - there are 3-5 types:
+# [[a.b.c]]
+# [[link title|a.b.c]]
+# [[dendron://vault/a.b.c]]
+# [[link title|dendron://vault/a.b.c]]
+# @a.b.c
+# 
+# Alternative: npx dendron exportPod --podId dendron.markdown --wsRoot pkm
 
-# TODO Copy link from frontmatter into body
+# TODO Replace broken (unpublished) links with something
 
-# TODO Fix broken links
+# TODO Copy "link" from frontmatter to top of body
 
 # TODO Copy assets
 
