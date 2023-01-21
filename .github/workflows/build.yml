@@ -12,22 +12,35 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: cconrad/cconrad.github.io
+          ref: notes
           token: ${{ secrets.GITHUB_PAT_READ_CCONRAD_GITHUB_IO }}
           path: cconrad.github.io
+
+      - name: Check out notes
+        uses: actions/checkout@v3
+        with:
+          repository: cconrad/dendron-personal
+          token: ${{ secrets.GITHUB_PAT_READ_DENDRON_PERSONAL }}
+          path: dendron-personal
+
       - name: Install node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install dependencies
+
+      - name: Install node dependencies
         working-directory: ./cconrad.github.io
         run: npm install
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build notes
+
       - name: Build blog
         working-directory: ./cconrad.github.io
         run: npm run build
-      - name: Create output folder
-        run: mkdir build
-      - name: Copy build to output folder
-        run: mv cconrad.github.io/_site/* build/
+
       - name: Deploy to Netlify
         uses: jsmrcaga/action-netlify-deploy@v2.0.0
         with:
@@ -35,6 +48,6 @@ jobs:
           NETLIFY_SITE_ID: aa60a07a-5121-4633-84ed-b87148d5db84
           NETLIFY_DEPLOY_TO_PROD: true
           NETLIFY_DEPLOY_MESSAGE: "Deployed from GitHub action"
-          build_directory: cconrad.github.io/_site
-          install_command: "echo Skipping installing the dependencies (pre-built on GitHub)"
-          build_command: "echo Skipping building the web files (pre-built on GitHub)"
+          BUILD_DIRECTORY: cconrad.github.io/_site
+          INSTALL_COMMAND: "echo Skipping installing the dependencies (pre-built on GitHub)"
+          BUILD_COMMAND: "echo Skipping building the web files (pre-built on GitHub)"
