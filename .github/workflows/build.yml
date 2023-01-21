@@ -8,6 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out build scripts
+        uses: actions/checkout@v3
+        with:
+          repository: cconrad/www.clausconrad.com
+          token: ${{ secrets.GITHUB_PAT_READ_WWW_CLAUSCONRAD_COM }}
+
       - name: Check out blog
         uses: actions/checkout@v3
         with:
@@ -32,10 +38,16 @@ jobs:
         working-directory: ./cconrad.github.io
         run: npm install
 
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
       - name: Build notes
+        run: python3.11 build-pkm.py
 
       - name: Build blog
         working-directory: ./cconrad.github.io
