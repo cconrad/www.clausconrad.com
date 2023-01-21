@@ -1,0 +1,39 @@
+name: Build www.clausconrad.com
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out blog
+        uses: actions/checkout@v3
+        with:
+          repository: cconrad/cconrad.github.io
+          token: ${{ secrets.GITHUB_PAT_READ_CCONRAD_GITHUB_IO }}
+          path: cconrad.github.io
+      - name: Install node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        working-directory: ./cconrad.github.io
+        run: npm install
+      - name: Build blog
+        working-directory: ./cconrad.github.io
+        run: npm run build
+      - name: Create output folder
+        run: mkdir build
+      - name: Copy build to output folder
+        run: mv cconrad.github.io/_site/* build/
+      - name: Deploy to Netlify
+        uses: jsmrcaga/action-netlify-deploy@v1.1.0
+        with:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: aa60a07a-5121-4633-84ed-b87148d5db84
+          NETLIFY_DEPLOY_TO_PROD: true
+          NETLIFY_DEPLOY_MESSAGE: "Deployed from GitHub action"
+          install_command: "echo Skipping installing the dependencies"
+          build_command: "echo Skipping building the web files"
