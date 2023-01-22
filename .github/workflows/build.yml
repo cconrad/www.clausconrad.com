@@ -53,13 +53,8 @@ jobs:
         working-directory: ./cconrad.github.io
         run: npm run build
 
+      - name: Install Netlify CLI
+        run: npm install netlify-cli -g
+
       - name: Deploy to Netlify
-        uses: jsmrcaga/action-netlify-deploy@v2.0.0
-        with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: aa60a07a-5121-4633-84ed-b87148d5db84
-          NETLIFY_DEPLOY_TO_PROD: true
-          NETLIFY_DEPLOY_MESSAGE: "Deployed from GitHub action"
-          BUILD_DIRECTORY: cconrad.github.io/_site
-          INSTALL_COMMAND: "echo Skipping installing the dependencies (pre-built on GitHub)"
-          BUILD_COMMAND: "echo Skipping building the web files (pre-built on GitHub)"
+        run: netlify deploy --dir cconrad.github.io/_site --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }} --build false --message "Deployed from GitHub Actions"
