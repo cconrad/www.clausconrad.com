@@ -10,15 +10,11 @@ jobs:
     steps:
       - name: Check out build scripts
         uses: actions/checkout@v3
-        with:
-          repository: cconrad/www.clausconrad.com
-          token: ${{ secrets.GITHUB_PAT_READ_WWW_CLAUSCONRAD_COM }}
 
       - name: Check out blog
         uses: actions/checkout@v3
         with:
           repository: cconrad/cconrad.github.io
-          ref: notes
           token: ${{ secrets.GITHUB_PAT_READ_CCONRAD_GITHUB_IO }}
           path: cconrad.github.io
 
@@ -52,9 +48,6 @@ jobs:
       - name: Build blog
         working-directory: ./cconrad.github.io
         run: npm run build
-
-      - name: Install Netlify CLI
-        run: npm install netlify-cli -g
 
       - name: Deploy to Netlify
         run: netlify deploy --dir cconrad.github.io/_site --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }} --build false --message "Deployed from GitHub Actions"

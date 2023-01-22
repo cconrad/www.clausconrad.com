@@ -11,35 +11,6 @@ def convert_dendron_link_to_markdown(match_object):
     return "[" + (groups[0] if groups[0] else groups[1]) + "](../" + groups[1] + "/)"
 
 
-# # Local testing: Clean up from previous run
-# try:
-#     shutil.rmtree("dendron-personal")
-#     shutil.rmtree("cconrad.github.io")
-# except FileNotFoundError:
-#     pass
-
-# # Clone PKM repo
-# subprocess.run(
-#     ["git", "clone", "--depth", "1", "git@github.com:cconrad/dendron-personal.git"],
-#     check=True,
-# )
-
-# # Clone blog repo
-# subprocess.run(
-#     ["git", "clone", "git@github.com:cconrad/cconrad.github.io.git"],
-#     check=True,
-# )
-
-# # TODO Remove after merging to main
-# # Checkout "notes" branch
-# subprocess.run(
-#     ["git", "-C", "cconrad.github.io", "checkout", "notes"],
-#     check=True,
-# )
-
-# # Make temporary directory for PKM files that should be published
-# os.mkdir("cconrad.github.io/content/notes")
-
 # Copy files that start with "r." and have frontmatter "published: true"
 for pathlike_file in [
     f
@@ -83,17 +54,3 @@ for pathlike_file in [
 # TODO Respect frontmatter "noindex: true"
 
 # TODO Copy assets
-
-# # For testing only: Assign layout
-# cat << EOF > ./content/notes/notes.11tydata.js
-# module.exports = function () {
-#   return {
-#     layout: "test.njk",
-#     // permalink: "blog/{{title | slugify}}/",
-#     tags: ["pkm"]
-#   };
-# };
-# EOF
-
-# Final build
-# npx @11ty/eleventy
