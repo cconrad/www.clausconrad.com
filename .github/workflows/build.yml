@@ -15,14 +15,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: cconrad/cconrad.github.io
-          token: ${{ secrets.GITHUB_PAT_READ_CCONRAD_GITHUB_IO }}
+          token: ${{ secrets.GH_PAT_READ_CCONRAD_GITHUB_IO }}
           path: cconrad.github.io
 
       - name: Check out notes
         uses: actions/checkout@v3
         with:
           repository: cconrad/dendron-personal
-          token: ${{ secrets.GITHUB_PAT_READ_DENDRON_PERSONAL }}
+          token: ${{ secrets.GH_PAT_READ_DENDRON_PERSONAL }}
           path: dendron-personal
 
       - name: Install node
