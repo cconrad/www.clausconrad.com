@@ -1,8 +1,6 @@
 import datetime
 import os
 import re
-import shutil
-import subprocess
 import frontmatter
 
 
@@ -53,4 +51,4 @@ for pathlike_file in [
 
 # TODO Respect frontmatter "noindex: true"
 
-# TODO Copy assets
+# TODO Copy related assets

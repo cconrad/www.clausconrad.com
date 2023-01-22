@@ -1,4 +1,4 @@
-name: Build www.clausconrad.com
+name: build-manual
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out build scripts
+      - name: Check out build script
         uses: actions/checkout@v3
 
       - name: Check out blog
@@ -42,10 +42,10 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Build notes
+      - name: Transform notes
         run: python3.11 build-pkm.py
 
-      - name: Build blog
+      - name: Build site
         working-directory: ./cconrad.github.io
         run: npm run build
 
