@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
+# Clean up
+rm -rf obsidian-personal
+rm -rf cconrad.github.io
+
 # Check out notes
 git clone git@github.com:cconrad/obsidian-personal.git
 
 # Install Python dependencies
 pip install -r requirements.txt
-
-# Clean up
-rm -rf cconrad.github.io
 
 # Check out blog
 git clone git@github.com:cconrad/cconrad.github.io.git
