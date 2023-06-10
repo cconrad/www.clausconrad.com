@@ -21,9 +21,9 @@ jobs:
       - name: Check out notes
         uses: actions/checkout@v3
         with:
-          repository: cconrad/dendron-personal
-          token: ${{ secrets.GH_PAT_READ_DENDRON_PERSONAL }}
-          path: dendron-personal
+          repository: cconrad/obsidian-personal
+          token: ${{ secrets.GH_PAT_READ_OBSIDIAN_PERSONAL }}
+          path: obsidian-personal
 
       - name: Install node
         uses: actions/setup-node@v3
