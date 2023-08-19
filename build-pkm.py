@@ -17,19 +17,30 @@ for pathlike_file in [
 ]:
     post = frontmatter.load(pathlike_file)
     if post.get("published") == True:
+
         created = post.get("created")
         if created:
             created = datetime.datetime.fromtimestamp(created / 1000).isoformat()
             post["date"] = created
             del post["created"]
+
         updated = post.get("updated")
         if updated:
             updated = datetime.datetime.fromtimestamp(updated / 1000).isoformat()
             post["updated"] = updated
+
+        # If title is not set explicitly, set title to first alias (if exists)
+        if not post.get("title"):
+            aliases = post.get("aliases")
+            if aliases and isinstance(aliases, list) and len(aliases) > 0:
+                post["title"] = aliases[0]
+        
         # Remove forgotten IDs from Dendron times
         if post.get("id"):
             del post["id"]
+
         del post["published"]
+
         # Change Obsidian links to regular MD links
         #
         # Remember - there are these types - this only converts the first two ones correctly:
@@ -52,9 +63,11 @@ for pathlike_file in [
             convert_obsidian_link_to_markdown,
             post.content,
         )
+
         frontmatter.dump(
             post, os.path.join("cconrad.github.io/content/notes/", pathlike_file.name)
         )
+
         print(f"Wrote {pathlike_file.name}")
 
 # TODO Replace broken (unpublished) links with something
