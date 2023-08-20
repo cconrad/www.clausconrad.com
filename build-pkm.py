@@ -32,8 +32,13 @@ for pathlike_file in [
         # If title is not set explicitly, set title to first alias (if exists)
         if not post.get("title"):
             aliases = post.get("aliases")
-            if aliases and isinstance(aliases, list) and len(aliases) > 0:
-                post["title"] = aliases[0]
+            if aliases:
+                if isinstance(aliases, list) and len(aliases) > 0:
+                    post["title"] = aliases[0]
+                elif isinstance(aliases, str) and len(aliases) > 0:
+                    post["title"] = aliases
+                else:
+                    continue
         
         # Remove forgotten IDs from Dendron times
         if post.get("id"):
