@@ -5,22 +5,22 @@ rm -rf obsidian-personal
 rm -rf cconrad.github.io
 
 # Check out notes
-git clone git@github.com:cconrad/obsidian-personal.git
+git clone --depth=1 --branch=main git@github.com:cconrad/obsidian-personal.git
 
 # Install Python dependencies
 pip install -r requirements.txt
 
 # Check out blog
-git clone git@github.com:cconrad/cconrad.github.io.git
+git clone --depth=1 --branch=main git@github.com:cconrad/cconrad.github.io.git
 
 # Install node dependencies
-cd cconrad.github.io && npm install
+npm install --prefix cconrad.github.io
 
 # Transform notes
-cd .. && python3.11 build-pkm.py
+python3.11 build-pkm.py
 
 # Build site
-cd cconrad.github.io && npm run build
+npm run build --prefix cconrad.github.io
 
 # Test site
-cd .. && python3.11 -m http.server --directory cconrad.github.io/_site
+python3.11 -m http.server --directory cconrad.github.io/_site
