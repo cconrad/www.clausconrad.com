@@ -13,7 +13,10 @@ def convert_obsidian_link_to_markdown(match_object):
 for pathlike_file in [
     f
     for f in os.scandir("obsidian-personal")
-    if f.is_file() and f.name.startswith("r.") and f.name.endswith(".md")
+    if f.is_file()
+    and not f.name.startswith("daily.journal.")
+    and not f.name.startswith("user.")
+    and f.name.endswith(".md")
 ]:
     post = frontmatter.load(pathlike_file)
     if post.get("published") == True:
