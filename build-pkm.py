@@ -6,7 +6,7 @@ import frontmatter
 
 def convert_obsidian_link_to_markdown(match_object):
     groups = match_object.groups()
-    return "[" + (groups[1] if groups[1] else groups[0]) + "](../" + groups[0] + "/)"
+    return "[" + (groups[2] if groups[2] else groups[0]) + "](../" + groups[0] + "/" + ('#' + groups[1] if groups[1] else '') + ")"
 
 
 # Copy files that start with "r." and have frontmatter "published: true"
@@ -55,16 +55,7 @@ for pathlike_file in [
         # [link title](obsidian://vault/VAULTNAME/a.b.c)
         # <a href="obsidian://vault/VAULTNAME/a.b.c">link title</a>
         post.content = re.sub(
-            # opening brackets
-            r"\[\[" +
-            # link target
-            r"([^ \s\0|]+)" +
-            # optional separator
-            r"\|?" +
-            # link title
-            r"([^\s\0|]*?)" +
-            # closing brackets
-            r"\]\]",
+            r"(?<!!)\[\[([a-zA-ZÀ-ÿ0-9-'?%.():&,+\/€! ]+)#?([a-zA-ZÀ-ÿ0-9-'?%.():&,+\/€! ]+)?\|?([a-zA-ZÀ-ÿ0-9-'?%.():&,+\/€! ]+)?\]\]",
             convert_obsidian_link_to_markdown,
             post.content,
         )
