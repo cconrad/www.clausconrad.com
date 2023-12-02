@@ -23,8 +23,8 @@ for pathlike_file in [
 
         created = post.get("created")
         if created:
-            created = datetime.datetime.fromtimestamp(created / 1000).isoformat()
-            post["date"] = created
+            # created = datetime.datetime.fromtimestamp(created / 1000).isoformat()
+            # post["date"] = created
             del post["created"]
 
         updated = post.get("updated")
