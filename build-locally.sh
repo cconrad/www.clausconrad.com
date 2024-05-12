@@ -17,10 +17,10 @@ git clone --depth=1 --branch=main git@github.com:cconrad/cconrad.github.io.git
 npm install --prefix cconrad.github.io
 
 # Transform notes
-python3.11 build-pkm.py
+python3 build-pkm.py
 
 # Build site
 npm run build --prefix cconrad.github.io
 
 # Test site
-python3.11 -m http.server --directory cconrad.github.io/_site
+python3 -m http.server --directory cconrad.github.io/_site
