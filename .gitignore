@@ -5,7 +5,7 @@ dist/
 # Dependencies
 node_modules/
 
-# Generated at build time by the ingest step (content lives in obsidian-personal,
+# Generated at build time by the ingest step (content lives elsewhere,
 # not in this repo — see PRD §2). Never commit these.
 src/content/docs/
 src/data/

@@ -1,17 +1,36 @@
-import { existsSync } from "node:fs"
+import { copyFileSync, existsSync, mkdirSync, rmSync } from "node:fs"
+import { dirname, join } from "node:path"
 import { loadConfig } from "./config.ts"
 import { discover } from "./discover.ts"
 import { resolvePublished } from "./resolve.ts"
 import { emit } from "./emit.ts"
+import { buildLinkIndex } from "./markdown/linkIndex.ts"
+import { buildAssetResolver, type AssetResolver } from "./markdown/assets.ts"
+import { transformDoc, type TransformContext } from "./markdown/transform.ts"
+
+/** Copy only the referenced assets into the single output tree at /assets/notes (§6.3). */
+function copyAssets(assetsDir: string, publicAssetsDir: string, resolver: AssetResolver): number {
+  const notesDir = join(publicAssetsDir, "notes")
+  rmSync(notesDir, { recursive: true, force: true })
+  let n = 0
+  for (const rel of resolver.referenced.keys()) {
+    const src = join(assetsDir, rel)
+    if (!existsSync(src)) continue
+    const dst = join(notesDir, rel)
+    mkdirSync(dirname(dst), { recursive: true })
+    copyFileSync(src, dst)
+    n++
+  }
+  return n
+}
 
 /**
  * Ingest CLI entry (§6). Wired as `prebuild`, so `astro build` runs after.
  *
- * Phase-2 scope: discover → filter (publish gating + privacy asserts) →
- * slug/URL resolve + collision error → emit notes/pages to the Starlight `docs`
- * collection. Markdown transform (wikilinks/embeds/assets/dead-links/YouTube/
- * website block), link graph, sidebar tree, git dates, and asset copying are
- * added in later phases.
+ * Pipeline: discover → filter (publish gating + privacy asserts) → slug/URL
+ * resolve + collision error → transform Markdown (wikilinks/embeds/dead-links/
+ * assets/YouTube/website block) → copy referenced assets → emit to the Starlight
+ * `docs` collection. Link graph, sidebar tree, and git dates come in later phases.
  */
 function main(): void {
   const config = loadConfig()
@@ -60,15 +79,26 @@ function main(): void {
     process.exit(1)
   }
 
-  emit(config.docsDir, docs)
+  // Transform Markdown using the published-set as the link/embed authority (§8).
+  const index = buildLinkIndex(docs)
+  const assetsDir = join(config.obsidianDir, "assets")
+  const assets = buildAssetResolver(assetsDir)
+  const tctx: TransformContext = { index, assets, warnings: [] }
+  const transformed = docs.map((d) => ({ ...d, body: transformDoc(d, tctx) }))
+  for (const w of tctx.warnings) console.warn(`[ingest] WARN ${w}`)
+
+  const copied = copyAssets(assetsDir, config.publicAssetsDir, assets)
+
+  emit(config.docsDir, transformed)
 
   const ratio = notesSources.length
     ? ((publishedNotes / notesSources.length) * 100).toFixed(1)
     : "0"
   console.log(
-    `[ingest] emitted ${docs.length} pages → ${config.docsDir}\n` +
+    `[ingest] emitted ${transformed.length} pages → ${config.docsDir}\n` +
       `[ingest]   notes: ${emittedNotes} published of ${notesSources.length} (${ratio}%)\n` +
-      `[ingest]   site pages: ${docs.length - emittedNotes} (skipped notes: ${skippedNotes})\n` +
+      `[ingest]   site pages: ${transformed.length - emittedNotes} (skipped notes: ${skippedNotes})\n` +
+      `[ingest]   assets: ${copied} copied → ${join(config.publicAssetsDir, "notes")}\n` +
       `[ingest] done in ${Date.now() - t0}ms`,
   )
 }
