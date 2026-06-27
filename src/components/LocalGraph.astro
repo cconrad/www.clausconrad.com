@@ -36,7 +36,6 @@ const payload = JSON.stringify({ nodes, links, current })
       .linkColor(() => 'rgba(128,128,128,0.35)')
       .linkWidth(1)
       .cooldownTicks(100)
-      .onEngineStop(() => graph.zoomToFit(400, 20))
       .onNodeClick((n: any) => {
         if (n.id !== current) window.location.href = n.id
       })
@@ -52,16 +51,24 @@ const payload = JSON.stringify({ nodes, links, current })
     graph.d3Force('charge')?.strength(-140)
     graph.d3Force('link')?.distance(46)
 
-    new ResizeObserver(() => graph.width(width())).observe(el)
-    // Poll the fit a few times: catches whichever of layout-ready / sim-settled
-    // happens last, regardless of timing.
-    let fits = 0
-    const fit = () => {
-      graph.width(width())
-      graph.zoomToFit(300, 20)
-      if (++fits < 6) setTimeout(fit, 500)
+    // Re-apply the measured width AND re-fit together. The desktop right sidebar
+    // reports its real (~narrow) width only after layout settles, so a width set
+    // at init is stale; refitting on every ResizeObserver tick (debounced via
+    // rAF) frames correctly once the final width arrives. Also refit when the
+    // simulation stops.
+    let raf = 0
+    const refit = () => {
+      const w = width()
+      if (w > 0) {
+        graph.width(w)
+        graph.zoomToFit(200, 20)
+      }
     }
-    setTimeout(fit, 300)
+    graph.onEngineStop(refit)
+    new ResizeObserver(() => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(refit)
+    }).observe(el)
   }
 
   // Defer to first layout so the container has a measured width.
