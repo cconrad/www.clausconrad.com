@@ -49,6 +49,11 @@ jobs:
         env:
           OBSIDIAN_DIR: ${{ github.workspace }}/.obsidian-content
 
+      - name: Validate (privacy + URL parity gates)
+        run: npm run validate
+        env:
+          OBSIDIAN_DIR: ${{ github.workspace }}/.obsidian-content
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:

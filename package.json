@@ -13,6 +13,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "migrate-blog-slugs": "tsx scripts/migrate-blog-slugs.ts",
+    "migrate-redirects": "tsx scripts/migrate-redirects.ts",
+    "validate": "tsx scripts/validate.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "tsc --noEmit && prettier . --check",
