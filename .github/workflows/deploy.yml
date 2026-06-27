@@ -1,0 +1,59 @@
+name: Deploy
+
+# Production deploy (§15). Triggered by a push to main, a repository_dispatch
+# from the private content repo (obsidian-personal), or manually.
+#
+# Privacy isolation (PRD line 45): the build runs in GitHub Actions and the
+# artifact is deployed via Wrangler, so Cloudflare's build service never gets
+# read access to the full private vault.
+#
+# Required secrets:
+#   OBSIDIAN_REPO_TOKEN   — read access to cconrad/obsidian-personal
+#   CLOUDFLARE_API_TOKEN  — Cloudflare Pages: Edit
+#   CLOUDFLARE_ACCOUNT_ID — Cloudflare account id
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [content-update]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Checkout content (private vault)
+        uses: actions/checkout@v4
+        with:
+          repository: cconrad/obsidian-personal
+          token: ${{ secrets.OBSIDIAN_REPO_TOKEN }}
+          path: .obsidian-content
+          fetch-depth: 0 # full history for git Created/Updated dates (§13)
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (ingest + astro)
+        run: npm run build
+        env:
+          OBSIDIAN_DIR: ${{ github.workspace }}/.obsidian-content
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Deploys dist/ as static assets and bundles ./functions (WordPress
+          # ?p=NNN redirects, §11).
+          command: pages deploy dist --project-name=clausconrad-com --branch=main

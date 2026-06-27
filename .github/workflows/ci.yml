@@ -1,0 +1,24 @@
+name: CI
+
+# Lint + typecheck + unit tests. No content needed (ingest logic is unit-tested
+# against fixtures), so the private vault is not checked out here.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      # Generate Astro/Starlight types (astro:content) so tsc can resolve them.
+      - run: npx astro sync
+      - run: npx tsc --noEmit
+      - run: npx prettier . --check
+      - run: npm test
