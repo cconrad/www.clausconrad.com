@@ -9,6 +9,7 @@ import { buildAssetResolver, type AssetResolver } from "./markdown/assets.ts"
 import { transformDoc, type TransformContext } from "./markdown/transform.ts"
 import { emitAuxFiles, emitRedirects } from "./redirects.ts"
 import { buildGraph } from "./graph.ts"
+import { buildNotesSidebar } from "./sidebarTree.ts"
 
 /** Copy only the referenced assets into the single output tree at /assets/notes (§6.3). */
 function copyAssets(assetsDir: string, publicAssetsDir: string, resolver: AssetResolver): number {
@@ -97,6 +98,11 @@ function main(): void {
   const graph = buildGraph(transformed)
   mkdirSync(config.dataDir, { recursive: true })
   writeFileSync(join(config.dataDir, "graph.json"), JSON.stringify(graph), "utf8")
+
+  // Notes sidebar tree from `in` (§10.3) → src/data/notesSidebar.gen.json.
+  const { sidebar, warnings: sidebarWarnings } = buildNotesSidebar(transformed)
+  writeFileSync(join(config.dataDir, "notesSidebar.gen.json"), JSON.stringify(sidebar), "utf8")
+  for (const w of sidebarWarnings) console.warn(`[ingest] WARN ${w}`)
 
   // Redirects (§11) + robots/humans (§4). /pageN count = the merged-stream page count.
   const streamCount = transformed.filter(

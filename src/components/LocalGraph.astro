@@ -53,11 +53,15 @@ const payload = JSON.stringify({ nodes, links, current })
     graph.d3Force('link')?.distance(46)
 
     new ResizeObserver(() => graph.width(width())).observe(el)
-    // Backstop in case the engine settles before layout is measured.
-    setTimeout(() => {
+    // Poll the fit a few times: catches whichever of layout-ready / sim-settled
+    // happens last, regardless of timing.
+    let fits = 0
+    const fit = () => {
       graph.width(width())
-      graph.zoomToFit(400, 20)
-    }, 1500)
+      graph.zoomToFit(300, 20)
+      if (++fits < 6) setTimeout(fit, 500)
+    }
+    setTimeout(fit, 300)
   }
 
   // Defer to first layout so the container has a measured width.
