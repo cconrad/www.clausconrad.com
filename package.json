@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "ingest": "tsx scripts/ingest/index.ts",
-    "prebuild": "npm run ingest",
+    "favicons": "tsx scripts/favicons.ts",
+    "prebuild": "npm run ingest && npm run favicons",
     "build": "astro build",
     "preview": "astro preview",
     "migrate-blog-slugs": "tsx scripts/migrate-blog-slugs.ts",

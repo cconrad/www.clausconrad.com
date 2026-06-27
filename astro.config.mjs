@@ -49,7 +49,25 @@ export default defineConfig({
       components: {
         Head: "./src/components/Head.astro",
         PageTitle: "./src/components/PageTitle.astro",
+        SiteTitle: "./src/components/SiteTitle.astro",
       },
+      // Favicons generated from the sidebar photo (§7); referenced by known paths.
+      head: [
+        { tag: "link", attrs: { rel: "icon", href: "/favicon.ico", sizes: "any" } },
+        {
+          tag: "link",
+          attrs: { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+        },
+        {
+          tag: "link",
+          attrs: { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+        },
+        {
+          tag: "link",
+          attrs: { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+        },
+        { tag: "link", attrs: { rel: "manifest", href: "/site.webmanifest" } },
+      ],
     }),
     // Post-build: rewrite emitted URLs to the D1 canonical form (no `.html`).
     cleanUrls(),
