@@ -1,0 +1,101 @@
+---
+import type { StreamItem } from '../lib/content.ts'
+
+interface Props {
+  items: StreamItem[]
+}
+const { items } = Astro.props
+
+// Group consecutive items by year (undated items grouped last under "Other").
+const groups: { year: string; items: StreamItem[] }[] = []
+for (const it of items) {
+  const year = it.dateMs === -Infinity ? 'Other' : String(new Date(it.dateMs).getUTCFullYear())
+  const last = groups[groups.length - 1]
+  if (last && last.year === year) last.items.push(it)
+  else groups.push({ year, items: [it] })
+}
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+function dm(ms: number) {
+  if (ms === -Infinity) return null
+  const d = new Date(ms)
+  return { day: d.getUTCDate(), month: MONTHS[d.getUTCMonth()] }
+}
+---
+
+<div class="post-list">
+  {
+    groups.map((g) => (
+      <section class="post-year">
+        <h2 class="post-year__heading">{g.year}</h2>
+        <ul>
+          {g.items.map((it) => {
+            const d = dm(it.dateMs)
+            return (
+              <li class="post-row">
+                <span class="post-row__date">
+                  {d ? (
+                    <>
+                      <span class="post-row__day">{d.day}</span> <span class="post-row__month">{d.month}</span>
+                    </>
+                  ) : null}
+                </span>
+                <a class="post-row__title" href={it.url}>
+                  {it.title}
+                </a>
+                <span class={`post-row__kind post-row__kind--${it.kind}`}>{it.kind}</span>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .post-year__heading {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    border: none;
+  }
+  .post-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+  }
+  .post-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+  }
+  .post-row__date {
+    flex: 0 0 3.2rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--sl-color-gray-3);
+    font-size: 0.85rem;
+  }
+  .post-row__day {
+    font-size: 1.05rem;
+    color: var(--sl-color-white);
+  }
+  .post-row__title {
+    flex: 1 1 auto;
+  }
+  .post-row__kind {
+    flex: 0 0 auto;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.05rem 0.4rem;
+    border-radius: 0.25rem;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-2);
+  }
+  .post-row__kind--blog {
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+  }
+</style>

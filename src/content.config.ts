@@ -20,8 +20,9 @@ export const collections = {
         kind: z.enum(["blog", "note", "page"]).optional(),
         // Original tags (blog category mapping + note tags, §9.2).
         tags: z.array(z.string()).optional(),
-        // Short description used for meta/OG (§9.4).
-        desc: z.string().optional(),
+        // Reading time + word count on all pages (§9.3).
+        words: z.number().optional(),
+        readingMinutes: z.number().optional(),
       }),
     }),
   }),

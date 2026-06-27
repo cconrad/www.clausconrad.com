@@ -1,0 +1,16 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import PostList from '../components/PostList.astro'
+import Pagination from '../components/Pagination.astro'
+import { PAGE_SIZE, pageCount, streamItems } from '../lib/content.ts'
+
+// Homepage = page 1 of the merged blog + notes stream (§9.1).
+const items = await streamItems()
+const total = pageCount(items.length)
+const pageItems = items.slice(0, PAGE_SIZE)
+---
+
+<StarlightPage frontmatter={{ title: 'Claus Conrad', tableOfContents: false }}>
+  <PostList items={pageItems} />
+  <Pagination current={1} total={total} />
+</StarlightPage>

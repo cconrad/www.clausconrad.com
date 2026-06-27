@@ -1,0 +1,57 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro'
+
+// Renders the default title, then a byline with Created/Updated dates (§13) and
+// reading time / word count (§9.3) on content pages.
+const data = Astro.locals.starlightRoute.entry.data as {
+  kind?: 'blog' | 'note' | 'page'
+  created?: string
+  updated?: string
+  readingMinutes?: number
+  words?: number
+}
+
+function fmt(s?: string): string | null {
+  if (!s) return null
+  const d = new Date(s)
+  if (Number.isNaN(d.getTime())) return null
+  return d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  })
+}
+
+const isContent = data.kind === 'blog' || data.kind === 'note' || data.kind === 'page'
+const created = fmt(data.created)
+const updated = fmt(data.updated)
+const showUpdated = updated && updated !== created
+const showByline = isContent && (created || showUpdated || data.readingMinutes)
+---
+
+<Default />
+{
+  showByline && (
+    <p class="page-byline">
+      {created && <span>Created {created}</span>}
+      {showUpdated && <span>Updated {updated}</span>}
+      {data.readingMinutes && (
+        <span>
+          {data.readingMinutes} min read{data.words ? ` · ${data.words} words` : ''}
+        </span>
+      )}
+    </p>
+  )
+}
+
+<style>
+  .page-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    margin-top: 0.4rem;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+  }
+</style>

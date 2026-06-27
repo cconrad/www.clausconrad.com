@@ -1,0 +1,31 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import PostList from '../components/PostList.astro'
+import Pagination from '../components/Pagination.astro'
+import { PAGE_SIZE, pageCount, streamItems, type StreamItem } from '../lib/content.ts'
+
+// `/page2 … /pageN` of the merged stream (§9.1). Generated from the real item
+// count so the page set can't drift.
+export async function getStaticPaths() {
+  const items = await streamItems()
+  const total = pageCount(items.length)
+  const paths: {
+    params: { num: string }
+    props: { items: StreamItem[]; current: number; total: number }
+  }[] = []
+  for (let n = 2; n <= total; n++) {
+    paths.push({
+      params: { num: String(n) },
+      props: { items: items.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE), current: n, total },
+    })
+  }
+  return paths
+}
+
+const { items, current, total } = Astro.props
+---
+
+<StarlightPage frontmatter={{ title: `Page ${current}`, tableOfContents: false }}>
+  <PostList items={items} />
+  <Pagination current={current} total={total} />
+</StarlightPage>

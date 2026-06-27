@@ -2,6 +2,7 @@ import { mkdirSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import matter from "gray-matter"
 import { computeDates } from "./dates.ts"
+import { computeExcerpt, plainText, readingMinutes, wordCount } from "./meta.ts"
 import type { ResolvedDoc } from "./types.ts"
 
 /**
@@ -14,6 +15,8 @@ export const EMITTED_FRONTMATTER_KEYS = new Set([
   "title",
   "description",
   "kind",
+  "words",
+  "readingMinutes",
   // Allowlisted source-derived (§3.4).
   "created",
   "updated",
@@ -39,8 +42,19 @@ export function buildEmittedFrontmatter(doc: ResolvedDoc): Record<string, unknow
     kind: doc.kind,
   }
 
-  const desc = doc.data.desc
-  if (typeof desc === "string" && desc.trim()) fm.description = desc
+  // Description / excerpt (§9.6): every page gets one (also used for OG, §9.4).
+  const description = computeExcerpt({
+    desc: doc.data.desc,
+    excerptFm: doc.data.excerpt,
+    teaser: doc.data.teaser,
+    body: doc.body,
+  })
+  if (description) fm.description = description
+
+  // Reading time + word count on ALL pages (§9.3, D4).
+  const words = wordCount(plainText(doc.body))
+  fm.words = words
+  fm.readingMinutes = readingMinutes(words)
 
   const { created, updated } = computeDates(doc.data)
   if (created) fm.created = created

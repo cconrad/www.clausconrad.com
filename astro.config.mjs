@@ -44,6 +44,12 @@ export default defineConfig({
       // Disable Starlight's own edit/last-updated chrome; dates come from ingest (§13).
       lastUpdated: false,
       pagination: false,
+      // Component overrides: site-wide OG image + JSON-LD (§9.4) and a byline
+      // with dates + reading time (§9.3, §13).
+      components: {
+        Head: "./src/components/Head.astro",
+        PageTitle: "./src/components/PageTitle.astro",
+      },
     }),
     // Post-build: rewrite emitted URLs to the D1 canonical form (no `.html`).
     cleanUrls(),

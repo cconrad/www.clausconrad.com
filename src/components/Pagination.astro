@@ -1,0 +1,55 @@
+---
+interface Props {
+  current: number
+  total: number
+}
+const { current, total } = Astro.props
+
+// Page 1 lives at `/`; pages 2..N at `/page2`…`/pageN` (no trailing slash, D1).
+const href = (n: number) => (n === 1 ? '/' : `/page${n}`)
+const prev = current > 1 ? href(current - 1) : null
+const next = current < total ? href(current + 1) : null
+---
+
+{
+  total > 1 && (
+    <nav class="pagination" aria-label="Pagination">
+      {prev ? (
+        <a rel="prev" href={prev}>
+          ← Newer
+        </a>
+      ) : (
+        <span class="pagination__disabled">← Newer</span>
+      )}
+      <span class="pagination__status">
+        Page {current} of {total}
+      </span>
+      {next ? (
+        <a rel="next" href={next}>
+          Older →
+        </a>
+      ) : (
+        <span class="pagination__disabled">Older →</span>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+  }
+  .pagination__status {
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+  }
+  .pagination__disabled {
+    color: var(--sl-color-gray-5);
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import Default from '@astrojs/starlight/components/Head.astro'
+import { buildJsonLd } from '../lib/jsonld.ts'
+
+// Extends Starlight's default <head> with a default OG image and per-page
+// JSON-LD on EVERY page (§9.4). Built only from allowlisted frontmatter.
+const route = Astro.locals.starlightRoute
+const data = route.entry.data as {
+  title: string
+  description?: string
+  created?: string
+  updated?: string
+  kind?: 'blog' | 'note' | 'page'
+}
+
+const site = (Astro.site?.toString() ?? 'https://www.clausconrad.com').replace(/\/$/, '')
+const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/')
+const url = (site + cleanPath).replace(/\/$/, '') || site + '/'
+const ogImage = site + '/assets/images/opengraph.jpg'
+
+const jsonLd = buildJsonLd({
+  kind: data.kind,
+  pathname: Astro.url.pathname,
+  url: cleanPath === '/' ? site + '/' : url,
+  site,
+  title: data.title,
+  description: data.description,
+  created: data.created,
+  updated: data.updated,
+})
+---
+
+<Default><slot /></Default>
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
