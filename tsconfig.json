@@ -1,22 +1,15 @@
 {
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "node",
     "strict": true,
-    "incremental": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  },
-  "include": ["**/*.ts", "**/*.tsx", "./package.json"],
-  "exclude": ["build/**/*.d.ts"]
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "types": ["node"],
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
 }

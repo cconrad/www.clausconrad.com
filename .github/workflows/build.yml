@@ -32,12 +32,12 @@ jobs:
       - name: Set up Node.js for Quartz
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
@@ -78,7 +78,7 @@ jobs:
       - name: Set up Node.js for Eleventy
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Eleventy dependencies
         run: npm install --no-save
