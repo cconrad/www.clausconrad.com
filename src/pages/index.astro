@@ -10,7 +10,7 @@ const total = pageCount(items.length)
 const pageItems = items.slice(0, PAGE_SIZE)
 ---
 
-<StarlightPage frontmatter={{ title: 'Claus Conrad', tableOfContents: false }}>
+<StarlightPage frontmatter={{ title: 'Claus Conrad', tableOfContents: false, pagefind: false }}>
   <PostList items={pageItems} />
   <Pagination current={1} total={total} />
 </StarlightPage>

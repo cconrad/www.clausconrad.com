@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 const { items, current, total } = Astro.props
 ---
 
-<StarlightPage frontmatter={{ title: `Page ${current}`, tableOfContents: false }}>
+<StarlightPage frontmatter={{ title: `Page ${current}`, tableOfContents: false, pagefind: false }}>
   <PostList items={items} />
   <Pagination current={current} total={total} />
 </StarlightPage>
