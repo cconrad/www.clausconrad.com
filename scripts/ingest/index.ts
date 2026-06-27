@@ -10,6 +10,8 @@ import { transformDoc, type TransformContext } from "./markdown/transform.ts"
 import { emitAuxFiles, emitRedirects } from "./redirects.ts"
 import { buildGraph } from "./graph.ts"
 import { buildNotesSidebar } from "./sidebarTree.ts"
+import { loadGitDates } from "./gitDates.ts"
+import { emitLlmsTxt, emitMarkdownSiblings } from "./markdownSiblings.ts"
 
 /** Copy only the referenced assets into the single output tree at /assets/notes (§6.3). */
 function copyAssets(assetsDir: string, publicAssetsDir: string, resolver: AssetResolver): number {
@@ -92,7 +94,17 @@ function main(): void {
 
   const copied = copyAssets(assetsDir, config.publicAssetsDir, assets)
 
-  emit(config.docsDir, transformed)
+  // Git Created/Updated fallback (§13) — one log pass over the source repo.
+  const gitDates = loadGitDates(config.obsidianDir)
+  const gitDated = transformed.filter(
+    (d) => !d.data.created && !d.data.date && gitDates.get(d.repoRelPath)?.created,
+  ).length
+
+  emit(config.docsDir, transformed, gitDates)
+
+  // Crawler Markdown siblings + llms.txt (§14).
+  const siblings = emitMarkdownSiblings(config.publicDir, transformed, gitDates)
+  emitLlmsTxt(config.publicDir, config.site, transformed)
 
   // Link graph + backlinks (§10.2) → src/data/graph.json.
   const graph = buildGraph(transformed)
@@ -138,6 +150,8 @@ function main(): void {
       `[ingest]   notes: ${emittedNotes} published of ${notesSources.length} (${ratio}%)\n` +
       `[ingest]   site pages: ${transformed.length - emittedNotes} (skipped notes: ${skippedNotes})\n` +
       `[ingest]   assets: ${copied} copied → ${join(config.publicAssetsDir, "notes")}\n` +
+      `[ingest]   git dates: ${gitDates.size} files in history, ${gitDated} pages got Created from git\n` +
+      `[ingest]   crawler: ${siblings} .md siblings + llms.txt\n` +
       `[ingest] done in ${Date.now() - t0}ms`,
   )
 }

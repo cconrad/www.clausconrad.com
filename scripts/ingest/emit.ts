@@ -2,6 +2,7 @@ import { mkdirSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import matter from "gray-matter"
 import { computeDates } from "./dates.ts"
+import { resolveDates, type GitDates } from "./gitDates.ts"
 import { computeExcerpt, plainText, readingMinutes, wordCount } from "./meta.ts"
 import type { ResolvedDoc } from "./types.ts"
 
@@ -36,7 +37,10 @@ export function docOutputPath(docsDir: string, doc: ResolvedDoc): string {
  * Build the emitted Starlight frontmatter ENTIRELY from allowlisted inputs
  * (never a passthrough of source frontmatter) — guarantees §3.4 by construction.
  */
-export function buildEmittedFrontmatter(doc: ResolvedDoc): Record<string, unknown> {
+export function buildEmittedFrontmatter(
+  doc: ResolvedDoc,
+  gitDates?: GitDates,
+): Record<string, unknown> {
   const fm: Record<string, unknown> = {
     title: typeof doc.data.title === "string" && doc.data.title.trim() ? doc.data.title : doc.stem,
     kind: doc.kind,
@@ -56,7 +60,8 @@ export function buildEmittedFrontmatter(doc: ResolvedDoc): Record<string, unknow
   fm.words = words
   fm.readingMinutes = readingMinutes(words)
 
-  const { created, updated } = computeDates(doc.data)
+  // Created/Updated: frontmatter wins, else git fallback (§13).
+  const { created, updated } = resolveDates(computeDates(doc.data), gitDates)
   if (created) fm.created = created
   if (updated) fm.updated = updated
 
@@ -70,16 +75,20 @@ export function buildEmittedFrontmatter(doc: ResolvedDoc): Record<string, unknow
 }
 
 /** Serialize one doc to a Markdown string with normalized frontmatter. */
-export function renderDoc(doc: ResolvedDoc): string {
-  return matter.stringify(doc.body, buildEmittedFrontmatter(doc))
+export function renderDoc(doc: ResolvedDoc, gitDates?: GitDates): string {
+  return matter.stringify(doc.body, buildEmittedFrontmatter(doc, gitDates))
 }
 
 /** Emit all resolved docs into the Starlight `docs` collection, replacing prior output. */
-export function emit(docsDir: string, docs: ResolvedDoc[]): void {
+export function emit(
+  docsDir: string,
+  docs: ResolvedDoc[],
+  gitByPath?: Map<string, GitDates>,
+): void {
   rmSync(docsDir, { recursive: true, force: true })
   for (const doc of docs) {
     const path = docOutputPath(docsDir, doc)
     mkdirSync(dirname(path), { recursive: true })
-    writeFileSync(path, renderDoc(doc), "utf8")
+    writeFileSync(path, renderDoc(doc, gitByPath?.get(doc.repoRelPath)), "utf8")
   }
 }

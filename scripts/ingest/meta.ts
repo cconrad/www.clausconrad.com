@@ -40,7 +40,13 @@ export function computeExcerpt(opts: {
   const explicit = [opts.desc, opts.excerptFm, opts.teaser].find(
     (v) => typeof v === "string" && v.trim() !== "",
   )
-  if (explicit) return String(explicit).trim()
+  if (explicit) {
+    // Old blog excerpts contain inline HTML; strip it for clean meta/llms text.
+    return String(explicit)
+      .replace(/<[^>]+>/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+  }
 
   const marker = opts.body.match(/<!--\s*Excerpt Start\s*-->([\s\S]*?)<!--\s*Excerpt End\s*-->/i)
   if (marker) return plainText(marker[1]).trim()

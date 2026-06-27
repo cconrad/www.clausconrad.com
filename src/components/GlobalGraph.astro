@@ -1,0 +1,71 @@
+---
+import { graph } from '../lib/graph.ts'
+
+// Whole-site link graph (§14). Rendered full-width in main content, so width is
+// reliable (unlike the sidebar local graph).
+const payload = JSON.stringify({
+  nodes: graph.nodes,
+  links: graph.edges,
+})
+---
+
+<div class="global-graph" data-graph={payload}></div>
+
+<script>
+  import ForceGraph from 'force-graph'
+
+  function init(el: HTMLElement) {
+    const { nodes, links } = JSON.parse(el.dataset.graph ?? '{}')
+    if (!nodes?.length) return
+
+    const styles = getComputedStyle(document.documentElement)
+    const accent = styles.getPropertyValue('--sl-color-text-accent').trim() || '#4f6bed'
+    const orange = styles.getPropertyValue('--sl-color-orange').trim() || '#e8833a'
+    const gray = styles.getPropertyValue('--sl-color-gray-3').trim() || '#888'
+    const color = (kind: string) =>
+      kind === 'blog' ? orange : kind === 'page' ? gray : accent
+    const width = () => el.clientWidth || el.parentElement?.clientWidth || 800
+
+    const graph = new ForceGraph(el)
+      .width(width())
+      .height(620)
+      .graphData({ nodes: nodes.map((n: any) => ({ ...n, id: n.url })), links })
+      .nodeId('id')
+      .nodeLabel('title')
+      .nodeRelSize(3)
+      .nodeColor((n: any) => color(n.kind))
+      .linkColor(() => 'rgba(128,128,128,0.2)')
+      .linkWidth(0.5)
+      .cooldownTicks(120)
+      .onNodeClick((n: any) => {
+        window.location.href = n.id
+      })
+      .nodeCanvasObjectMode(() => 'after')
+      .nodeCanvasObject((n: any, ctx: CanvasRenderingContext2D, scale: number) => {
+        if (scale < 3) return
+        ctx.font = `${9 / scale}px sans-serif`
+        ctx.fillStyle = gray
+        ctx.fillText(n.title ?? '', n.x + 4 / scale, n.y + 3 / scale)
+      })
+
+    graph.onEngineStop(() => graph.zoomToFit(400, 24))
+    new ResizeObserver(() => graph.width(width())).observe(el)
+  }
+
+  const start = () =>
+    requestAnimationFrame(() =>
+      document.querySelectorAll<HTMLElement>('.global-graph').forEach(init),
+    )
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start)
+  else start()
+</script>
+
+<style>
+  .global-graph {
+    width: 100%;
+    height: 620px;
+    border: 1px solid var(--sl-color-gray-6);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+</style>

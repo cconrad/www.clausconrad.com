@@ -100,6 +100,7 @@ export function buildNotesSidebar(notes: ResolvedDoc[]): {
 
   const items: SidebarEntry[] = [
     { label: "Overview", link: "/notes" },
+    { label: "Graph", link: "/graph" },
     ...[...roots, ...cycleOrphans].sort(byLabel).map((r) => node(r, new Set())),
   ]
   return { sidebar: { label: "Notes", collapsed: true, items }, warnings }
