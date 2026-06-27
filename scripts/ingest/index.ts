@@ -1,12 +1,13 @@
 import { copyFileSync, existsSync, mkdirSync, rmSync } from "node:fs"
 import { dirname, join } from "node:path"
-import { loadConfig } from "./config.ts"
+import { loadConfig, repoRoot } from "./config.ts"
 import { discover } from "./discover.ts"
 import { resolvePublished } from "./resolve.ts"
 import { emit } from "./emit.ts"
 import { buildLinkIndex } from "./markdown/linkIndex.ts"
 import { buildAssetResolver, type AssetResolver } from "./markdown/assets.ts"
 import { transformDoc, type TransformContext } from "./markdown/transform.ts"
+import { emitAuxFiles, emitRedirects } from "./redirects.ts"
 
 /** Copy only the referenced assets into the single output tree at /assets/notes (§6.3). */
 function copyAssets(assetsDir: string, publicAssetsDir: string, resolver: AssetResolver): number {
@@ -90,6 +91,32 @@ function main(): void {
   const copied = copyAssets(assetsDir, config.publicAssetsDir, assets)
 
   emit(config.docsDir, transformed)
+
+  // Redirects (§11) + robots/humans (§4). /pageN count = the merged-stream page count.
+  const streamCount = transformed.filter(
+    (d) => (d.kind === "blog" || d.kind === "note") && d.url !== "/notes",
+  ).length
+  const blogPageCount = Math.max(1, Math.ceil(streamCount / 5))
+  const redir = emitRedirects({
+    repoRoot,
+    publicDir: config.publicDir,
+    legacyPath: config.legacyRedirectsPath,
+    overridesPath: config.redirectOverridesPath,
+    docs: transformed,
+    blogPageCount,
+  })
+  emitAuxFiles(config.publicDir, config.site)
+  for (const r of redir.remapped) console.warn(`[ingest] WARN redirect remapped: ${r}`)
+  if (redir.unresolved.length) {
+    console.warn(
+      `[ingest] WARN ${redir.unresolved.length} legacy redirect target(s) unresolved (dropped):`,
+    )
+    for (const u of redir.unresolved) console.warn(`[ingest]   ${u}`)
+  }
+  console.log(
+    `[ingest] redirects → ${redir.redirectsFile} (+${redir.pageCount} pageN), ` +
+      `WordPress fn ${redir.wordpressCount} rules → ${redir.functionFile}`,
+  )
 
   const ratio = notesSources.length
     ? ((publishedNotes / notesSources.length) * 100).toFixed(1)

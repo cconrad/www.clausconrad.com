@@ -1,0 +1,12 @@
+{
+  "_comment": "Manual legacy-target remaps (§11) for posts/notes whose title (and thus slug) changed since the old WordPress/_redirects era, so they can't be auto-matched. Maps a stale legacy target to its current canonical URL. Owner-editable.",
+  "/blog/creating-a-gce-instance-from-a-shared-image-using-salt-cloud": "/blog/create-a-freebsd-gce-instance-with-salt-cloud",
+  "/blog/disable-port-5353-usage-debian-lenny-after-installing-sun-java-jre": "/blog/disable-port-5353-usage-on-debian-lenny-after-installing-sun-java-jre",
+  "/blog/inbox-zero-notes": "/blog/inbox-zero",
+  "/blog/migrating-a-bunch-of-wordpress-blogs-to-a-single-wordpress-3-multi-site-installation": "/blog/migrating-a-bunch-of-wordpress-blogs-to-a-single-wordpress-3-0-multi-site-installation",
+  "/blog/monitoring-open-network-connections-and-listening-ports-debian-lenny": "/blog/monitoring-open-network-connections-and-listening-ports-on-debian-lenny",
+  "/blog/omnios-openindiana-ips-repositories": "/blog/omnios-openindiana-ips-repository",
+  "/blog/personalize-your-googleplus-url": "/blog/personalize-your-google-url",
+  "/blog/workaround-jungle-disk-restore-problems": "/blog/a-workaround-for-jungle-disk-restore-problems",
+  "/notes/truenas-scale": "/notes/truenas"
+}

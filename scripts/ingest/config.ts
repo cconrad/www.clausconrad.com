@@ -13,8 +13,16 @@ export interface IngestConfig {
   docsDir: string
   /** Output: generated data (graph.json, notesSidebar.gen.ts) — later phases. */
   dataDir: string
-  /** Output: single static assets folder (§6.3) — later phase. */
+  /** Output: single static assets folder (§6.3). */
   publicAssetsDir: string
+  /** Output: static root (public/) for _redirects, robots.txt, humans.txt. */
+  publicDir: string
+  /** Committed frozen legacy redirects (§11). */
+  legacyRedirectsPath: string
+  /** Committed manual redirect overrides (§11). */
+  redirectOverridesPath: string
+  /** Canonical site origin. */
+  site: string
 }
 
 export function loadConfig(): IngestConfig {
@@ -24,5 +32,9 @@ export function loadConfig(): IngestConfig {
     docsDir: resolve(repoRoot, "src/content/docs"),
     dataDir: resolve(repoRoot, "src/data"),
     publicAssetsDir: resolve(repoRoot, "public/assets"),
+    publicDir: resolve(repoRoot, "public"),
+    legacyRedirectsPath: resolve(repoRoot, "src/redirects/legacy.json"),
+    redirectOverridesPath: resolve(repoRoot, "src/redirects/overrides.json"),
+    site: process.env.SITE_URL ?? "https://www.clausconrad.com",
   }
 }
