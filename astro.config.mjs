@@ -50,6 +50,7 @@ export default defineConfig({
         Head: "./src/components/Head.astro",
         PageTitle: "./src/components/PageTitle.astro",
         SiteTitle: "./src/components/SiteTitle.astro",
+        PageSidebar: "./src/components/PageSidebar.astro",
       },
       // Favicons generated from the sidebar photo (§7); referenced by known paths.
       head: [

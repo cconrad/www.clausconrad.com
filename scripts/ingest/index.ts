@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, rmSync } from "node:fs"
+import { copyFileSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { loadConfig, repoRoot } from "./config.ts"
 import { discover } from "./discover.ts"
@@ -8,6 +8,7 @@ import { buildLinkIndex } from "./markdown/linkIndex.ts"
 import { buildAssetResolver, type AssetResolver } from "./markdown/assets.ts"
 import { transformDoc, type TransformContext } from "./markdown/transform.ts"
 import { emitAuxFiles, emitRedirects } from "./redirects.ts"
+import { buildGraph } from "./graph.ts"
 
 /** Copy only the referenced assets into the single output tree at /assets/notes (§6.3). */
 function copyAssets(assetsDir: string, publicAssetsDir: string, resolver: AssetResolver): number {
@@ -91,6 +92,11 @@ function main(): void {
   const copied = copyAssets(assetsDir, config.publicAssetsDir, assets)
 
   emit(config.docsDir, transformed)
+
+  // Link graph + backlinks (§10.2) → src/data/graph.json.
+  const graph = buildGraph(transformed)
+  mkdirSync(config.dataDir, { recursive: true })
+  writeFileSync(join(config.dataDir, "graph.json"), JSON.stringify(graph), "utf8")
 
   // Redirects (§11) + robots/humans (§4). /pageN count = the merged-stream page count.
   const streamCount = transformed.filter(
