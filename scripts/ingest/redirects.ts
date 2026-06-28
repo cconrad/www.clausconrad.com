@@ -154,10 +154,23 @@ export function emitRedirects(opts: {
   }
 }
 
-/** Emit robots.txt + humans.txt (§4). */
+/** Emit Cloudflare Pages headers, robots.txt + humans.txt (§4). */
 export function emitAuxFiles(publicDir: string, site: string): void {
   mkdirSync(publicDir, { recursive: true })
   const origin = site.replace(/\/$/, "")
+  writeFileSync(
+    join(publicDir, "_headers"),
+    [
+      "# Cloudflare Pages: prevent project and preview pages.dev URLs from being indexed.",
+      "https://:project.pages.dev/*",
+      "  X-Robots-Tag: noindex",
+      "",
+      "https://:version.:project.pages.dev/*",
+      "  X-Robots-Tag: noindex",
+      "",
+    ].join("\n"),
+    "utf8",
+  )
   writeFileSync(
     join(publicDir, "robots.txt"),
     `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap-index.xml\n`,

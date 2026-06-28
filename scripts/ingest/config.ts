@@ -15,7 +15,7 @@ export interface IngestConfig {
   dataDir: string
   /** Output: single static assets folder (§6.3). */
   publicAssetsDir: string
-  /** Output: static root (public/) for _redirects, robots.txt, humans.txt. */
+  /** Output: static root (public/) for _redirects, _headers, robots.txt, humans.txt. */
   publicDir: string
   /** Committed frozen legacy redirects (§11). */
   legacyRedirectsPath: string
