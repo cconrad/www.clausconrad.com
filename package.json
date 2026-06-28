@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "description": "clausconrad.com — Astro 7 + Starlight site (blog + Obsidian notes)",
+  "description": "Blog and digital garden of Claus Conrad",
   "scripts": {
     "dev": "astro dev",
     "ingest": "tsx scripts/ingest/index.ts",

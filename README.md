@@ -4,7 +4,7 @@ The [clausconrad.com](https://www.clausconrad.com) frontend: an Astro 7 +
 Starlight site that renders a blog and a collection of Obsidian notes.
 
 No content lives in this repo. At build time the **ingest** step reads the
-private `obsidian-personal` vault, gates pages by `published: true`, strips
+private Obsidian vault, gates pages by `published: true`, strips
 frontmatter to an allowlist, transforms Obsidian Markdown (wikilinks, embeds,
 assets, dead links, YouTube), and emits into Starlight's `docs` collection.
 
@@ -62,6 +62,4 @@ accurate result.
 ## Deploy
 
 GitHub Actions builds in CI and deploys the artifact to Cloudflare Pages via
-Wrangler (so Cloudflare never reads the private vault). See
-[.github/workflows](.github/workflows). The implementation spec lives in
-`~/prds/clausconrad.com-step-2.md`.
+Wrangler. See [.github/workflows](.github/workflows).
