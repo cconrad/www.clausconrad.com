@@ -35,7 +35,14 @@ const isContent = data.kind === 'blog' || data.kind === 'note' || data.kind === 
 const created = fmt(data.created)
 const updated = fmt(data.updated)
 const showUpdated = updated && updated !== created
-const showByline = isContent && (created || showUpdated || data.readingMinutes)
+
+// §6: each section separated by " · ".
+const bylineParts: string[] = []
+if (created) bylineParts.push(`Created ${created}`)
+if (showUpdated) bylineParts.push(`Updated ${updated}`)
+if (data.readingMinutes) bylineParts.push(`${data.readingMinutes} min read`)
+if (data.words) bylineParts.push(`${data.words} words`)
+const showByline = isContent && bylineParts.length > 0
 ---
 
 {
@@ -46,26 +53,13 @@ const showByline = isContent && (created || showUpdated || data.readingMinutes)
   ) : (
     <>
       <Default />
-      {showByline && (
-        <p class="page-byline">
-          {created && <span>Created {created}</span>}
-          {showUpdated && <span>Updated {updated}</span>}
-          {data.readingMinutes && (
-            <span>
-              {data.readingMinutes} min read{data.words ? ` · ${data.words} words` : ''}
-            </span>
-          )}
-        </p>
-      )}
+      {showByline && <p class="page-byline">{bylineParts.join(' · ')}</p>}
     </>
   )
 }
 
 <style>
   .page-byline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 1rem;
     margin-top: 0.4rem;
     color: var(--sl-color-gray-3);
     font-size: var(--sl-text-sm);
