@@ -5,6 +5,9 @@ name: Preview
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 concurrency:
   group: preview-${{ github.event.pull_request.number }}
   cancel-in-progress: true

@@ -18,6 +18,9 @@ on:
     types: [content-update]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: deploy-production
   cancel-in-progress: true

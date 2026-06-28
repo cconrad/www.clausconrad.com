@@ -33,6 +33,13 @@ describe("computeExcerpt (§9.6)", () => {
     expect(computeExcerpt({ excerptFm: "E", teaser: "T", body: "b" })).toBe("E")
     expect(computeExcerpt({ teaser: "T", body: "b" })).toBe("T")
   })
+  it("turns explicit HTML-like excerpts into plain text", () => {
+    expect(computeExcerpt({ desc: "<strong>Clean</strong> text", body: "b" })).toBe("Clean text")
+    const malformed = computeExcerpt({ desc: "<scr<scriptipt>alert(1)</script>Clean", body: "b" })
+    expect(malformed).toBe("alert(1) Clean")
+    expect(malformed).not.toContain("<")
+    expect(malformed).not.toContain(">")
+  })
   it("uses Excerpt Start/End markers", () => {
     expect(
       computeExcerpt({ body: "intro <!-- Excerpt Start -->the bit<!-- Excerpt End --> rest" }),

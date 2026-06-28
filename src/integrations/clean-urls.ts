@@ -35,10 +35,16 @@ async function* walk(dir: string): AsyncGenerator<string> {
   }
 }
 
-function rewrite(content: string, origin: string): string {
+export function rewrite(content: string, origin: string): string {
   // 1) Absolute same-origin URLs (canonical, og:url, twitter:url, sitemap <loc>).
-  const originRe = new RegExp(`${origin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/[^"'<\\s]*`, "g")
-  let out = content.replace(originRe, (m) => cleanUrl(m))
+  const absoluteUrlRe = /https?:\/\/[^"'<\s]*/g
+  let out = content.replace(absoluteUrlRe, (m) => {
+    try {
+      return new URL(m).origin === origin ? cleanUrl(m) : m
+    } catch {
+      return m
+    }
+  })
   // 2) Root-relative internal links (nav/sidebar/body). Leaves external + "//" alone.
   out = out.replace(/href="(\/[^/"][^"]*)"/g, (_m, p: string) => `href="${cleanUrl(p)}"`)
   return out

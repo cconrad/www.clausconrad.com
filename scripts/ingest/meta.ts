@@ -2,12 +2,28 @@
 // Computed from the already-transformed Markdown body and emitted as
 // build-generated frontmatter — only allowlisted source values are consumed.
 
+function stripHtmlTags(text: string): string {
+  let out = ""
+  let inTag = false
+  for (const char of text) {
+    if (char === "<") {
+      inTag = true
+      out += " "
+    } else if (char === ">") {
+      inTag = false
+      out += " "
+    } else if (!inTag) {
+      out += char
+    }
+  }
+  return out
+}
+
 /** Reduce Markdown/HTML to plain text for word counting + excerpting. */
 export function plainText(md: string): string {
-  return md
+  return stripHtmlTags(md)
     .replace(/```[\s\S]*?```/g, " ") // fenced code
     .replace(/`[^`]*`/g, " ") // inline code
-    .replace(/<[^>]+>/g, " ") // html tags (iframes, spans, …)
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ") // images
     .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1") // links → link text
     .replace(/^[#>\s-]+/gm, " ") // heading/quote/list markers
@@ -42,10 +58,7 @@ export function computeExcerpt(opts: {
   )
   if (explicit) {
     // Old blog excerpts contain inline HTML; strip it for clean meta/llms text.
-    return String(explicit)
-      .replace(/<[^>]+>/g, "")
-      .replace(/\s+/g, " ")
-      .trim()
+    return stripHtmlTags(String(explicit)).replace(/\s+/g, " ").trim()
   }
 
   const marker = opts.body.match(/<!--\s*Excerpt Start\s*-->([\s\S]*?)<!--\s*Excerpt End\s*-->/i)
