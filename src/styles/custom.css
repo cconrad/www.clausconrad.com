@@ -1,0 +1,8 @@
+/* Site-wide style overrides layered on top of Starlight. */
+
+/* §7: main-body link colour. Article bodies, the post list, pagination, and the
+   home intro all render inside .sl-markdown-content, so this covers every link
+   in the central content column without touching nav/header/sidebar links. */
+.sl-markdown-content a {
+  color: #312e81;
+}

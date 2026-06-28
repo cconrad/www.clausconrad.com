@@ -53,6 +53,8 @@ export default defineConfig({
       // Disable Starlight's own edit/last-updated chrome; dates come from ingest (§13).
       lastUpdated: false,
       pagination: false,
+      // Site-wide style overrides (§7: body link colour).
+      customCss: ["./src/styles/custom.css"],
       // Component overrides: site-wide OG image + JSON-LD (§9.4) and a byline
       // with dates + reading time (§9.3, §13).
       components: {
