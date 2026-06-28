@@ -6,3 +6,18 @@
 .sl-markdown-content a {
   color: #312e81;
 }
+
+/* §8: below Starlight's wide breakpoint (72rem) the right sidebar stops being a
+   fixed right-hand column and stacks in normal flow — by source order that puts
+   our Local graph / Backlinks panel ABOVE the content. Re-order it to sit BELOW
+   the content. The mobile "On this page" bar is position:fixed, so it stays
+   pinned at the top regardless. */
+@media (max-width: 71.9375rem) {
+  .lg\:sl-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  .lg\:sl-flex > .right-sidebar-container {
+    order: 2;
+  }
+}
