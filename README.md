@@ -8,14 +8,44 @@ private `obsidian-personal` vault, gates pages by `published: true`, strips
 frontmatter to an allowlist, transforms Obsidian Markdown (wikilinks, embeds,
 assets, dead links, YouTube), and emits into Starlight's `docs` collection.
 
-## Develop
+## Local preview
+
+A local build reads the vault straight from disk via `OBSIDIAN_DIR` (CI just
+points it at its checkout). It defaults to `~/Obsidian/personal`, so a plain
+build works locally; set `OBSIDIAN_DIR` to use a different copy.
 
 ```sh
 npm install
-OBSIDIAN_DIR=/path/to/obsidian-personal npm run ingest   # then `npm run dev`
 ```
 
-`OBSIDIAN_DIR` defaults to the local vault checkout; set it to your copy.
+**Visual preview** (theme, pages, graphs):
+
+```sh
+npm run build       # prebuild = ingest (reads the vault) + favicons, then astro build
+npm run preview     # serves dist/ at http://localhost:4321
+# or against another vault:
+OBSIDIAN_DIR=/path/to/obsidian-personal npm run build && npm run preview
+```
+
+**Cloudflare-accurate preview** — `astro preview` serves the static pages but
+does _not_ apply `public/_redirects` or `functions/`. To exercise the legacy
+redirects and the WordPress `?p=NNN` Pages Function, use Cloudflare's emulator:
+
+```sh
+npm run build
+npx wrangler pages dev dist
+```
+
+**Fast iteration** while editing components/styles (HMR):
+
+```sh
+npm run ingest      # once, to populate src/content/docs from the vault
+npm run dev         # http://localhost:4321
+```
+
+Re-run `ingest` after vault edits. `dev` does not apply the post-build
+clean-URL rewrite or redirects — use `build` + `preview`/`wrangler` for an
+accurate result.
 
 ## Scripts
 
