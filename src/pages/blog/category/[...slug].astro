@@ -1,0 +1,23 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import PostList from '../../../components/PostList.astro'
+import { CATEGORIES, categoryItems, type StreamItem } from '../../../lib/content.ts'
+
+// The three live category indexes (§9.2):
+//   /blog/category/personal, /blog/category/howto/development,
+//   /blog/category/howto/system-administration
+export async function getStaticPaths() {
+  return Promise.all(
+    CATEGORIES.map(async (c) => ({
+      params: { slug: c.slug },
+      props: { items: await categoryItems(c.tag), title: c.title },
+    })),
+  )
+}
+
+const { items, title } = Astro.props as { items: StreamItem[]; title: string }
+---
+
+<StarlightPage frontmatter={{ title, tableOfContents: false, pagefind: false }}>
+  <PostList items={items} />
+</StarlightPage>

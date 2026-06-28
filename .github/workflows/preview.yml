@@ -1,0 +1,53 @@
+name: Preview
+
+# Cloudflare Pages preview deploy for pull requests (§15). Skipped for fork PRs
+# (no access to secrets / the private vault).
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v7
+
+      - name: Checkout content (private vault)
+        uses: actions/checkout@v7
+        with:
+          repository: cconrad/obsidian-personal
+          token: ${{ secrets.GH_PAT_READ_OBSIDIAN_PERSONAL }}
+          path: .obsidian-content
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (ingest + astro)
+        run: npm run build
+        env:
+          OBSIDIAN_DIR: ${{ github.workspace }}/.obsidian-content
+
+      - name: Validate (privacy + URL parity gates)
+        run: npm run validate
+        env:
+          OBSIDIAN_DIR: ${{ github.workspace }}/.obsidian-content
+
+      - name: Deploy preview to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --branch=${{ github.head_ref }}

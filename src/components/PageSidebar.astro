@@ -1,0 +1,90 @@
+---
+import Default from '@astrojs/starlight/components/PageSidebar.astro'
+import LocalGraph from './LocalGraph.astro'
+import { backlinksFor, neighborhood } from '../lib/graph.ts'
+
+// Right sidebar: Starlight's TOC (§10.1) plus a local link graph + backlinks on
+// content pages (§10.2). Published-only by construction (graph.json never
+// contains unpublished nodes).
+const route = Astro.locals.starlightRoute
+const data = route.entry.data as { kind?: string }
+
+let url = '/' + route.entry.id
+url = url.replace(/\/index$/, '')
+if (url === '/index' || url === '') url = '/'
+
+const isContent = data.kind === 'note' || data.kind === 'blog'
+const backlinks = isContent ? backlinksFor(url) : []
+const hood = isContent ? neighborhood(url) : { nodes: [], links: [] }
+const showGraph = hood.nodes.length > 1
+---
+
+<Default><slot /></Default>
+
+{
+  (showGraph || backlinks.length > 0) && (
+    <div class="notes-aside">
+      <div class="notes-aside__panel">
+        {showGraph && (
+          <section>
+            <h2 class="notes-aside__heading">Local graph</h2>
+            <LocalGraph nodes={hood.nodes} links={hood.links} current={url} />
+          </section>
+        )}
+        {backlinks.length > 0 && (
+          <section>
+            <h2 class="notes-aside__heading">Backlinks</h2>
+            <ul class="notes-aside__backlinks">
+              {backlinks.map((b) => (
+                <li>
+                  <a href={b.url}>{b.title}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .notes-aside {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+    /* §12: match the padding Starlight gives its "On this page" panel
+       (.right-sidebar-panel) so the Local graph / Backlinks sections line up. */
+    padding: 1rem var(--sl-sidebar-pad-x);
+  }
+  /* §11: at >=72rem the right sidebar is position:fixed and full viewport width,
+     so a width:100% child (the graph canvas) would span the whole viewport and
+     zoomToFit would frame the nodes off-screen. Constrain the panel to the same
+     visible column width Starlight gives its TOC (.sl-container) so the graph
+     frames inside the sidebar. */
+  .notes-aside__panel {
+    width: 100%;
+  }
+  @media (min-width: 72rem) {
+    .notes-aside__panel {
+      width: calc(var(--sl-sidebar-width) - 2 * var(--sl-sidebar-pad-x));
+      max-width: calc(
+        (100vw - var(--sl-sidebar-width) - 2 * var(--sl-content-pad-x) - 2 * var(--sl-sidebar-pad-x)) *
+          0.25
+      );
+    }
+  }
+  .notes-aside__heading {
+    font-size: var(--sl-text-h5);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .notes-aside__backlinks {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    font-size: var(--sl-text-sm);
+  }
+  .notes-aside__backlinks li {
+    margin: 0.25rem 0;
+  }
+</style>

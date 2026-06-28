@@ -1,0 +1,33 @@
+/* Site-wide style overrides layered on top of Starlight. */
+
+/* §7: main-body link colour. Article bodies, the post list, pagination, and the
+   home intro all render inside .sl-markdown-content, so this covers every link
+   in the central content column without touching nav/header/sidebar links. */
+.sl-markdown-content a {
+  color: #312e81;
+}
+
+/* §7 follow-up: recolour the remaining accent-blue controls to #312e81 too — the
+   social icons, the page-sidebar TOC current item, and the mobile search Cancel
+   button (all use --sl-color-text-accent). Links that aren't blue (e.g. the left
+   sidebar menu, inactive TOC links) keep their colour. */
+.social-icons a,
+.right-sidebar-panel a[aria-current="true"],
+button[data-close-modal] {
+  color: #312e81;
+}
+
+/* §8: below Starlight's wide breakpoint (72rem) the right sidebar stops being a
+   fixed right-hand column and stacks in normal flow — by source order that puts
+   our Local graph / Backlinks panel ABOVE the content. Re-order it to sit BELOW
+   the content. The mobile "On this page" bar is position:fixed, so it stays
+   pinned at the top regardless. */
+@media (max-width: 71.9375rem) {
+  .lg\:sl-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  .lg\:sl-flex > .right-sidebar-container {
+    order: 2;
+  }
+}

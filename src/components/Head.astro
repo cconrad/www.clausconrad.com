@@ -1,0 +1,50 @@
+---
+import Default from '@astrojs/starlight/components/Head.astro'
+import { buildJsonLd } from '../lib/jsonld.ts'
+
+// Extends Starlight's default <head> with a default OG image and per-page
+// JSON-LD on EVERY page (§9.4). Built only from allowlisted frontmatter.
+const route = Astro.locals.starlightRoute
+const data = route.entry.data as {
+  title: string
+  description?: string
+  created?: string
+  updated?: string
+  kind?: 'blog' | 'note' | 'page'
+}
+
+const site = (Astro.site?.toString() ?? 'https://www.clausconrad.com').replace(/\/$/, '')
+const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/')
+const url = (site + cleanPath).replace(/\/$/, '') || site + '/'
+const ogImage = site + '/assets/images/opengraph.jpg'
+
+// Crawler Markdown sibling (§14) for content pages.
+const isContent = data.kind === 'note' || data.kind === 'blog' || data.kind === 'page'
+const mdHref = isContent && cleanPath !== '/' ? cleanPath.replace(/\/$/, '') + '.md' : null
+
+const jsonLd = buildJsonLd({
+  kind: data.kind,
+  pathname: Astro.url.pathname,
+  url: cleanPath === '/' ? site + '/' : url,
+  site,
+  title: data.title,
+  description: data.description,
+  created: data.created,
+  updated: data.updated,
+})
+
+// §3.1 exception: when the page title equals the site title (the home page),
+// Starlight would render "<title>Claus Conrad | Claus Conrad" — collapse it so
+// the name shows only once.
+if (data.title === route.siteTitle) {
+  const titleTag = route.head.find((t) => t.tag === 'title')
+  if (titleTag) titleTag.content = route.siteTitle
+}
+---
+
+<Default><slot /></Default>
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
+{mdHref && <link rel="alternate" type="text/markdown" href={mdHref} />}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

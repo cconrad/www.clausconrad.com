@@ -1,0 +1,32 @@
+name: CI
+
+# Lint + typecheck + unit tests. No content needed (ingest logic is unit-tested
+# against fixtures), so the private vault is not checked out here.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      # Generate Astro/Starlight types (astro:content) so tsc can resolve them.
+      # CI intentionally skips the private vault, so add one throwaway doc to
+      # keep Starlight's docs loader quiet during sync.
+      - run: |
+          mkdir -p src/content/docs
+          printf '%s\n' '---' 'title: CI placeholder' '---' > src/content/docs/index.md
+      - run: npx astro sync
+      - run: npx tsc --noEmit
+      - run: npx prettier . --check
+      - run: npm test

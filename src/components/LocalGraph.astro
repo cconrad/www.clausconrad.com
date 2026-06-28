@@ -1,0 +1,92 @@
+---
+import type { GraphEdge, GraphNode } from '../lib/graph.ts'
+
+interface Props {
+  nodes: GraphNode[]
+  links: GraphEdge[]
+  current: string
+}
+const { nodes, links, current } = Astro.props
+const payload = JSON.stringify({ nodes, links, current })
+---
+
+<div class="local-graph" data-graph={payload} aria-hidden="true"></div>
+
+<script>
+  import ForceGraph from 'force-graph'
+
+  function initGraph(el: HTMLElement) {
+    const { nodes, links, current } = JSON.parse(el.dataset.graph ?? '{}')
+    if (!nodes?.length) return
+
+    const styles = getComputedStyle(document.documentElement)
+    const accent = styles.getPropertyValue('--sl-color-text-accent').trim() || '#4f6bed'
+    const current0 = styles.getPropertyValue('--sl-color-orange').trim() || '#e63946'
+    const text = styles.getPropertyValue('--sl-color-gray-2').trim() || '#888'
+    const width = () => el.clientWidth || el.parentElement?.clientWidth || 240
+
+    const graph = new ForceGraph(el)
+      .width(width())
+      .height(220)
+      .graphData({ nodes: nodes.map((n: any) => ({ ...n, id: n.url })), links })
+      .nodeId('id')
+      .nodeLabel('title')
+      .nodeRelSize(4)
+      .nodeColor((n: any) => (n.id === current ? current0 : accent))
+      .linkColor(() => 'rgba(128,128,128,0.35)')
+      .linkWidth(1)
+      .cooldownTicks(100)
+      .onNodeClick((n: any) => {
+        if (n.id !== current) window.location.href = n.id
+      })
+      .nodeCanvasObjectMode(() => 'after')
+      .nodeCanvasObject((n: any, ctx: CanvasRenderingContext2D, scale: number) => {
+        if (scale < 1.5) return
+        ctx.font = `${10 / scale}px sans-serif`
+        ctx.fillStyle = text
+        ctx.fillText(n.title ?? '', n.x + 5 / scale, n.y + 3 / scale)
+      })
+
+    // Spread small neighbourhoods so nodes don't overlap into a dot.
+    graph.d3Force('charge')?.strength(-140)
+    graph.d3Force('link')?.distance(46)
+
+    // Re-apply the measured width AND re-fit together. The desktop right sidebar
+    // reports its real (~narrow) width only after layout settles, so a width set
+    // at init is stale; refitting on every ResizeObserver tick (debounced via
+    // rAF) frames correctly once the final width arrives. Also refit when the
+    // simulation stops.
+    let raf = 0
+    const refit = () => {
+      const w = width()
+      if (w > 0) {
+        graph.width(w)
+        graph.zoomToFit(200, 20)
+      }
+    }
+    graph.onEngineStop(refit)
+    new ResizeObserver(() => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(refit)
+    }).observe(el)
+  }
+
+  // Defer to first layout so the container has a measured width.
+  const start = () =>
+    requestAnimationFrame(() =>
+      document.querySelectorAll<HTMLElement>('.local-graph').forEach(initGraph),
+    )
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start)
+  else start()
+</script>
+
+<style>
+  .local-graph {
+    width: 100%;
+    height: 220px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--sl-color-gray-6);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+</style>

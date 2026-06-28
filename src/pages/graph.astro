@@ -1,0 +1,20 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import GlobalGraph from '../components/GlobalGraph.astro'
+import { graph } from '../lib/graph.ts'
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Graph',
+    description: 'The link graph of all blog posts and notes on this site.',
+    tableOfContents: false,
+    pagefind: false,
+  }}
+>
+  <p>
+    {graph.nodes.length} pages, {graph.edges.length} links. Blue = notes, orange = blog posts, grey =
+    pages. Click a node to open it.
+  </p>
+  <GlobalGraph />
+</StarlightPage>

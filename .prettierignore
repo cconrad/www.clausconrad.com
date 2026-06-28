@@ -1,3 +1,7 @@
-public
+dist
 node_modules
-.quartz-cache
+.astro
+public
+src/content/docs
+src/data
+package-lock.json

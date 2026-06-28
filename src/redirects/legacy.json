@@ -1,0 +1,1032 @@
+{
+  "paths": [
+    {
+      "from": "http://cconrad.netlify.app/*",
+      "to": "https://www.clausconrad.com/:splat",
+      "status": "301!"
+    },
+    {
+      "from": "https://cconrad.netlify.app/*",
+      "to": "https://www.clausconrad.com/:splat",
+      "status": "301!"
+    },
+    {
+      "from": "/10-kompisar.html",
+      "to": "/10-kompisar",
+      "status": "301"
+    },
+    {
+      "from": "/blog/accidentally-removed-user-login-block-in-drupal.html",
+      "to": "/blog/accidentally-removed-user-login-block-in-drupal",
+      "status": "301"
+    },
+    {
+      "from": "/blog/add-manjaro-openbox-flavor-to-manjaro-xfce.html",
+      "to": "/blog/add-manjaro-openbox-flavor-to-manjaro-xfce",
+      "status": "301"
+    },
+    {
+      "from": "/blog/analyzing-ongoingworlds-posts.html",
+      "to": "/blog/analyzing-ongoingworlds-posts",
+      "status": "301"
+    },
+    {
+      "from": "/blog/a-nicer-vmadm-list-for-smartos.html",
+      "to": "/blog/a-nicer-vmadm-list-for-smartos",
+      "status": "301"
+    },
+    {
+      "from": "/blog/apache-segmentation-fault-after-enabling-ssl.html",
+      "to": "/blog/apache-segmentation-fault-after-enabling-ssl",
+      "status": "301"
+    },
+    {
+      "from": "/blog/appfog-command-line-tool-support-for-jetbrains-ides.html",
+      "to": "/blog/appfog-command-line-tool-support-for-jetbrains-ides",
+      "status": "301"
+    },
+    {
+      "from": "/blog/a-user-friendly-and-fast-linux-for-netbooks.html",
+      "to": "/blog/a-user-friendly-and-fast-linux-for-netbooks",
+      "status": "301"
+    },
+    {
+      "from": "/blog/autohotkey-mousemove-not-working-in-virtualbox.html",
+      "to": "/blog/autohotkey-mousemove-not-working-in-virtualbox",
+      "status": "301"
+    },
+    {
+      "from": "/blog/backing-up-freebsd-jails-using-amanda.html",
+      "to": "/blog/backing-up-freebsd-jails-using-amanda",
+      "status": "301"
+    },
+    {
+      "from": "/blog/backing-up-to-amazon-aws.html",
+      "to": "/blog/backing-up-to-amazon-aws",
+      "status": "301"
+    },
+    {
+      "from": "/blog/backup-jenkins-configuration-to-s3.html",
+      "to": "/blog/backup-jenkins-configuration-to-s3",
+      "status": "301"
+    },
+    {
+      "from": "/blog/bad-gateway-with-nginx-php-fpm-using-freebsd-socket.html",
+      "to": "/blog/bad-gateway-with-nginx-php-fpm-using-freebsd-socket",
+      "status": "301"
+    },
+    {
+      "from": "/blog/cant-leave-eq2-dungeon-maker.html",
+      "to": "/blog/cant-leave-eq2-dungeon-maker",
+      "status": "301"
+    },
+    {
+      "from": "/blog/category/howto/development.html",
+      "to": "/blog/category/howto/development",
+      "status": "301"
+    },
+    {
+      "from": "/blog/category/howto/system-administration.html",
+      "to": "/blog/category/howto/system-administration",
+      "status": "301"
+    },
+    {
+      "from": "/blog/category/personal.html",
+      "to": "/blog/category/personal",
+      "status": "301"
+    },
+    {
+      "from": "/blog/cheaper-than-locally-ordering-food-online-in-sweden.html",
+      "to": "/blog/cheaper-than-locally-ordering-food-online-in-sweden",
+      "status": "301"
+    },
+    {
+      "from": "/blog/check-for-wordpress-updates-from-the-outside.html",
+      "to": "/blog/check-for-wordpress-updates-from-the-outside",
+      "status": "301"
+    },
+    {
+      "from": "/blog/coffeescript-support-for-jetbrains-phpstorm-webstorm-pycharm.html",
+      "to": "/blog/coffeescript-support-for-jetbrains-phpstorm-webstorm-pycharm",
+      "status": "301"
+    },
+    {
+      "from": "/blog/colour-catcher-review.html",
+      "to": "/blog/colour-catcher-review",
+      "status": "301"
+    },
+    {
+      "from": "/blog/communityserver-2008-5-blogs-api-reference.html",
+      "to": "/blog/communityserver-2008-5-blogs-api-reference",
+      "status": "301"
+    },
+    {
+      "from": "/blog/comparing-content-delivery-networks.html",
+      "to": "/blog/comparing-content-delivery-networks",
+      "status": "301"
+    },
+    {
+      "from": "/blog/configuring-sendmail-on-solaris-10-to-use-a-smart-host.html",
+      "to": "/blog/configuring-sendmail-on-solaris-10-to-use-a-smart-host",
+      "status": "301"
+    },
+    {
+      "from": "/blog/converting-mercurial-repositories-to-git.html",
+      "to": "/blog/converting-mercurial-repositories-to-git",
+      "status": "301"
+    },
+    {
+      "from": "/blog/convert-ssl-certificate-from-apache-to-iis.html",
+      "to": "/blog/convert-ssl-certificate-from-apache-to-iis",
+      "status": "301"
+    },
+    {
+      "from": "/blog/count-files-in-a-folder-recursively.html",
+      "to": "/blog/count-files-in-a-folder-recursively",
+      "status": "301"
+    },
+    {
+      "from": "/blog/creating-a-gce-instance-from-a-shared-image-using-salt-cloud.html",
+      "to": "/blog/creating-a-gce-instance-from-a-shared-image-using-salt-cloud",
+      "status": "301"
+    },
+    {
+      "from": "/blog/customer-service-done-right.html",
+      "to": "/blog/customer-service-done-right",
+      "status": "301"
+    },
+    {
+      "from": "/blog/deactivate-xscreensaver-via-ssh.html",
+      "to": "/blog/deactivate-xscreensaver-via-ssh",
+      "status": "301"
+    },
+    {
+      "from": "/blog/debugging-pyramid-with-pycharm.html",
+      "to": "/blog/debugging-pyramid-with-pycharm",
+      "status": "301"
+    },
+    {
+      "from": "/blog/diigo-backup-script.html",
+      "to": "/blog/diigo-backup-script",
+      "status": "301"
+    },
+    {
+      "from": "/blog/disable-most-visited-in-new-tabs-in-firefox-3.html",
+      "to": "/blog/disable-most-visited-in-new-tabs-in-firefox-3",
+      "status": "301"
+    },
+    {
+      "from": "/blog/disable-port-5353-usage-debian-lenny-after-installing-sun-java-jre.html",
+      "to": "/blog/disable-port-5353-usage-debian-lenny-after-installing-sun-java-jre",
+      "status": "301"
+    },
+    {
+      "from": "/blog/django-app-as-facebook-canvas-app.html",
+      "to": "/blog/django-app-as-facebook-canvas-app",
+      "status": "301"
+    },
+    {
+      "from": "/blog/does-your-communityserver-have-spam-profiles.html",
+      "to": "/blog/does-your-communityserver-have-spam-profiles",
+      "status": "301"
+    },
+    {
+      "from": "/blog/drop-caps-in-thesis.html",
+      "to": "/blog/drop-caps-in-thesis",
+      "status": "301"
+    },
+    {
+      "from": "/blog/easy-firewall-setup-for-manjaro-linux.html",
+      "to": "/blog/easy-firewall-setup-for-manjaro-linux",
+      "status": "301"
+    },
+    {
+      "from": "/blog/embracing-salt.html",
+      "to": "/blog/embracing-salt",
+      "status": "301"
+    },
+    {
+      "from": "/blog/error-1307-hy000-failed-to-create-procedure.html",
+      "to": "/blog/error-1307-hy000-failed-to-create-procedure",
+      "status": "301"
+    },
+    {
+      "from": "/blog/error-404-updating-kali-linux.html",
+      "to": "/blog/error-404-updating-kali-linux",
+      "status": "301"
+    },
+    {
+      "from": "/blog/everyday-shopping-in-sweden.html",
+      "to": "/blog/everyday-shopping-in-sweden",
+      "status": "301"
+    },
+    {
+      "from": "/blog/export-exchange-mailbox-to-pst.html",
+      "to": "/blog/export-exchange-mailbox-to-pst",
+      "status": "301"
+    },
+    {
+      "from": "/blog/faster-iphone-tethering-with-manjaro.html",
+      "to": "/blog/faster-iphone-tethering-with-manjaro",
+      "status": "301"
+    },
+    {
+      "from": "/blog/file-copy-error-after-activating-drupal-translation.html",
+      "to": "/blog/file-copy-error-after-activating-drupal-translation",
+      "status": "301"
+    },
+    {
+      "from": "/blog/finding-small-freelance-translation-jobs.html",
+      "to": "/blog/finding-small-freelance-translation-jobs",
+      "status": "301"
+    },
+    {
+      "from": "/blog/fix-for-python-path-on-smartos.html",
+      "to": "/blog/fix-for-python-path-on-smartos",
+      "status": "301"
+    },
+    {
+      "from": "/blog/flickr-backup-tools.html",
+      "to": "/blog/flickr-backup-tools",
+      "status": "301"
+    },
+    {
+      "from": "/blog/freebsd-hangs-during-boot-with-usb-drives-attached.html",
+      "to": "/blog/freebsd-hangs-during-boot-with-usb-drives-attached",
+      "status": "301"
+    },
+    {
+      "from": "/blog/freebsd-hangs-on-reboot-on-digitalocean.html",
+      "to": "/blog/freebsd-hangs-on-reboot-on-digitalocean",
+      "status": "301"
+    },
+    {
+      "from": "/blog/gamify-your-life.html",
+      "to": "/blog/gamify-your-life",
+      "status": "301"
+    },
+    {
+      "from": "/blog/get-metadata-about-mysql-databases.html",
+      "to": "/blog/get-metadata-about-mysql-databases",
+      "status": "301"
+    },
+    {
+      "from": "/blog/hiring-on-freelance-sites.html",
+      "to": "/blog/hiring-on-freelance-sites",
+      "status": "301"
+    },
+    {
+      "from": "/blog/holiday-in-sweden.html",
+      "to": "/blog/holiday-in-sweden",
+      "status": "301"
+    },
+    {
+      "from": "/blog/how-to-build-a-db9-to-rj45-serial-cable.html",
+      "to": "/blog/how-to-build-a-db9-to-rj45-serial-cable",
+      "status": "301"
+    },
+    {
+      "from": "/blog/improve-your-iphone-3gs-battery-life.html",
+      "to": "/blog/improve-your-iphone-3gs-battery-life",
+      "status": "301"
+    },
+    {
+      "from": "/blog/inbox-zero-notes.html",
+      "to": "/blog/inbox-zero-notes",
+      "status": "301"
+    },
+    {
+      "from": "/blog/inspecting-a-kendo-ui-datepicker-for-theming.html",
+      "to": "/blog/inspecting-a-kendo-ui-datepicker-for-theming",
+      "status": "301"
+    },
+    {
+      "from": "/blog/installing-caldecott-on-windows.html",
+      "to": "/blog/installing-caldecott-on-windows",
+      "status": "301"
+    },
+    {
+      "from": "/blog/installing-couchbase-2-1-1-on-centos-6-4.html",
+      "to": "/blog/installing-couchbase-2-1-1-on-centos-6-4",
+      "status": "301"
+    },
+    {
+      "from": "/blog/installing-lastpass-on-freebsd.html",
+      "to": "/blog/installing-lastpass-on-freebsd",
+      "status": "301"
+    },
+    {
+      "from": "/blog/installing-software-on-pc-bsd-9-2-for-dummies.html",
+      "to": "/blog/installing-software-on-pc-bsd-9-2-for-dummies",
+      "status": "301"
+    },
+    {
+      "from": "/blog/installing-tarsnap-on-linux-mint-17-3.html",
+      "to": "/blog/installing-tarsnap-on-linux-mint-17-3",
+      "status": "301"
+    },
+    {
+      "from": "/blog/installing-updates-on-solaris-10-from-the-command-line.html",
+      "to": "/blog/installing-updates-on-solaris-10-from-the-command-line",
+      "status": "301"
+    },
+    {
+      "from": "/blog/is-linux-mint-adware.html",
+      "to": "/blog/is-linux-mint-adware",
+      "status": "301"
+    },
+    {
+      "from": "/blog/keyboard-shortcut-to-delete-files-in-nautilus.html",
+      "to": "/blog/keyboard-shortcut-to-delete-files-in-nautilus",
+      "status": "301"
+    },
+    {
+      "from": "/blog/lease-net-development-tools.html",
+      "to": "/blog/lease-net-development-tools",
+      "status": "301"
+    },
+    {
+      "from": "/blog/less-verbose-server-response-header-from-apache.html",
+      "to": "/blog/less-verbose-server-response-header-from-apache",
+      "status": "301"
+    },
+    {
+      "from": "/blog/list-of-source-code-hosting-services.html",
+      "to": "/blog/list-of-source-code-hosting-services",
+      "status": "301"
+    },
+    {
+      "from": "/blog/living-in-sweden.html",
+      "to": "/blog/living-in-sweden",
+      "status": "301"
+    },
+    {
+      "from": "/blog/manjaro-openbox-right-click-menu-as-root.html",
+      "to": "/blog/manjaro-openbox-right-click-menu-as-root",
+      "status": "301"
+    },
+    {
+      "from": "/blog/manjaro-xfce-default-display-manager.html",
+      "to": "/blog/manjaro-xfce-default-display-manager",
+      "status": "301"
+    },
+    {
+      "from": "/blog/map-of-fitness24seven-locations.html",
+      "to": "/blog/map-of-fitness24seven-locations",
+      "status": "301"
+    },
+    {
+      "from": "/blog/meta-description-dos-and-donts.html",
+      "to": "/blog/meta-description-dos-and-donts",
+      "status": "301"
+    },
+    {
+      "from": "/blog/microsoft-online-services.html",
+      "to": "/blog/microsoft-online-services",
+      "status": "301"
+    },
+    {
+      "from": "/blog/migrating-a-bunch-of-wordpress-blogs-to-a-single-wordpress-3-multi-site-installation.html",
+      "to": "/blog/migrating-a-bunch-of-wordpress-blogs-to-a-single-wordpress-3-multi-site-installation",
+      "status": "301"
+    },
+    {
+      "from": "/blog/minimize-almost-any-window-to-the-systray.html",
+      "to": "/blog/minimize-almost-any-window-to-the-systray",
+      "status": "301"
+    },
+    {
+      "from": "/blog/monitoring-open-network-connections-and-listening-ports-debian-lenny.html",
+      "to": "/blog/monitoring-open-network-connections-and-listening-ports-debian-lenny",
+      "status": "301"
+    },
+    {
+      "from": "/blog/moving-to-sweden-mostly-for-danes.html",
+      "to": "/blog/moving-to-sweden-mostly-for-danes",
+      "status": "301"
+    },
+    {
+      "from": "/blog/my-first-open-source-commit.html",
+      "to": "/blog/my-first-open-source-commit",
+      "status": "301"
+    },
+    {
+      "from": "/blog/my-hardware-and-os-history.html",
+      "to": "/blog/my-hardware-and-os-history",
+      "status": "301"
+    },
+    {
+      "from": "/blog/news-and-radio-from-sweden.html",
+      "to": "/blog/news-and-radio-from-sweden",
+      "status": "301"
+    },
+    {
+      "from": "/blog/omnios-openindiana-ips-repositories.html",
+      "to": "/blog/omnios-openindiana-ips-repositories",
+      "status": "301"
+    },
+    {
+      "from": "/blog/online-mindmapping-services-compared.html",
+      "to": "/blog/online-mindmapping-services-compared",
+      "status": "301"
+    },
+    {
+      "from": "/blog/page-constantly-reloads-after-logging-in-to-outlook-on-the-web.html",
+      "to": "/blog/page-constantly-reloads-after-logging-in-to-outlook-on-the-web",
+      "status": "301"
+    },
+    {
+      "from": "/blog/percona-server-not-starting-in-jail-after-upgrading-freebsd-host-from-9-2-to-9-3.html",
+      "to": "/blog/percona-server-not-starting-in-jail-after-upgrading-freebsd-host-from-9-2-to-9-3",
+      "status": "301"
+    },
+    {
+      "from": "/blog/personalize-your-googleplus-url.html",
+      "to": "/blog/personalize-your-googleplus-url",
+      "status": "301"
+    },
+    {
+      "from": "/blog/personal-knowledge-management-tools-and-methodologies.html",
+      "to": "/blog/personal-knowledge-management-tools-and-methodologies",
+      "status": "301"
+    },
+    {
+      "from": "/blog/portmaster-a-upgrades-db48-repeatedly.html",
+      "to": "/blog/portmaster-a-upgrades-db48-repeatedly",
+      "status": "301"
+    },
+    {
+      "from": "/blog/positive-passwords.html",
+      "to": "/blog/positive-passwords",
+      "status": "301"
+    },
+    {
+      "from": "/blog/power-management-under-i3-on-arch-linux.html",
+      "to": "/blog/power-management-under-i3-on-arch-linux",
+      "status": "301"
+    },
+    {
+      "from": "/blog/programming-and-productivity-publications.html",
+      "to": "/blog/programming-and-productivity-publications",
+      "status": "301"
+    },
+    {
+      "from": "/blog/public-transport-in-sweden.html",
+      "to": "/blog/public-transport-in-sweden",
+      "status": "301"
+    },
+    {
+      "from": "/blog/removing-search-this-site-from-the-search-block-in-drupal-6.html",
+      "to": "/blog/removing-search-this-site-from-the-search-block-in-drupal-6",
+      "status": "301"
+    },
+    {
+      "from": "/blog/repairing-outlook-pst-files.html",
+      "to": "/blog/repairing-outlook-pst-files",
+      "status": "301"
+    },
+    {
+      "from": "/blog/restarting-spideroak-after-switching-networks.html",
+      "to": "/blog/restarting-spideroak-after-switching-networks",
+      "status": "301"
+    },
+    {
+      "from": "/blog/richard-bach-out-of-my-mind.html",
+      "to": "/blog/richard-bach-out-of-my-mind",
+      "status": "301"
+    },
+    {
+      "from": "/blog/rsync-between-network-drives.html",
+      "to": "/blog/rsync-between-network-drives",
+      "status": "301"
+    },
+    {
+      "from": "/blog/run-a-command-in-all-non-global-solaris-zones.html",
+      "to": "/blog/run-a-command-in-all-non-global-solaris-zones",
+      "status": "301"
+    },
+    {
+      "from": "/blog/running-backuppc-with-lighttpd-instead-of-apache.html",
+      "to": "/blog/running-backuppc-with-lighttpd-instead-of-apache",
+      "status": "301"
+    },
+    {
+      "from": "/blog/running-plunker-in-ie9.html",
+      "to": "/blog/running-plunker-in-ie9",
+      "status": "301"
+    },
+    {
+      "from": "/blog/running-postgresql-9-3-in-an-ezjail.html",
+      "to": "/blog/running-postgresql-9-3-in-an-ezjail",
+      "status": "301"
+    },
+    {
+      "from": "/blog/running-postgresql-in-iocage-managed-jail-on-freebsd-10-2-release.html",
+      "to": "/blog/running-postgresql-in-iocage-managed-jail-on-freebsd-10-2-release",
+      "status": "301"
+    },
+    {
+      "from": "/blog/saving-space-on-hybrids-how-to-move-the-documents-or-profile-folder.html",
+      "to": "/blog/saving-space-on-hybrids-how-to-move-the-documents-or-profile-folder",
+      "status": "301"
+    },
+    {
+      "from": "/blog/scrapy-example-posts-from-ongoingworlds.html",
+      "to": "/blog/scrapy-example-posts-from-ongoingworlds",
+      "status": "301"
+    },
+    {
+      "from": "/blog/set-environment-variable-for-one-command-with-csh.html",
+      "to": "/blog/set-environment-variable-for-one-command-with-csh",
+      "status": "301"
+    },
+    {
+      "from": "/blog/shutdown-htpc-from-vera-controller.html",
+      "to": "/blog/shutdown-htpc-from-vera-controller",
+      "status": "301"
+    },
+    {
+      "from": "/blog/skype-as-a-sip-gateway.html",
+      "to": "/blog/skype-as-a-sip-gateway",
+      "status": "301"
+    },
+    {
+      "from": "/blog/slow-amazon-ec2-rsync-scp-sftp-upload-speeds.html",
+      "to": "/blog/slow-amazon-ec2-rsync-scp-sftp-upload-speeds",
+      "status": "301"
+    },
+    {
+      "from": "/blog/smartos-configuration-notes.html",
+      "to": "/blog/smartos-configuration-notes",
+      "status": "301"
+    },
+    {
+      "from": "/blog/sort-ls-output-by-date-ascending.html",
+      "to": "/blog/sort-ls-output-by-date-ascending",
+      "status": "301"
+    },
+    {
+      "from": "/blog/swedish-language.html",
+      "to": "/blog/swedish-language",
+      "status": "301"
+    },
+    {
+      "from": "/blog/the-application-cannot-start-running-visual-studio-as-administrator.html",
+      "to": "/blog/the-application-cannot-start-running-visual-studio-as-administrator",
+      "status": "301"
+    },
+    {
+      "from": "/blog/the-last-year-of-your-life.html",
+      "to": "/blog/the-last-year-of-your-life",
+      "status": "301"
+    },
+    {
+      "from": "/blog/thesis-customizations-i-like.html",
+      "to": "/blog/thesis-customizations-i-like",
+      "status": "301"
+    },
+    {
+      "from": "/blog/the-workplace-of-the-future.html",
+      "to": "/blog/the-workplace-of-the-future",
+      "status": "301"
+    },
+    {
+      "from": "/blog/toggl-command-line-on-windows.html",
+      "to": "/blog/toggl-command-line-on-windows",
+      "status": "301"
+    },
+    {
+      "from": "/blog/troubleshooting-linux-sound-problems.html",
+      "to": "/blog/troubleshooting-linux-sound-problems",
+      "status": "301"
+    },
+    {
+      "from": "/blog/try-this-search-on-google-for-startpagecom.html",
+      "to": "/blog/try-this-search-on-google-for-startpagecom",
+      "status": "301"
+    },
+    {
+      "from": "/blog/typeerror-cannot-read-property-browserify-of-undefined.html",
+      "to": "/blog/typeerror-cannot-read-property-browserify-of-undefined",
+      "status": "301"
+    },
+    {
+      "from": "/blog/uninstall-asus-screen-saver.html",
+      "to": "/blog/uninstall-asus-screen-saver",
+      "status": "301"
+    },
+    {
+      "from": "/blog/updating-to-latest-pass-on-ubuntu-14-04.html",
+      "to": "/blog/updating-to-latest-pass-on-ubuntu-14-04",
+      "status": "301"
+    },
+    {
+      "from": "/blog/use-root-path-for-sudo-on-freebsd.html",
+      "to": "/blog/use-root-path-for-sudo-on-freebsd",
+      "status": "301"
+    },
+    {
+      "from": "/blog/using-backuppc-to-archive-backups-via-sftp.html",
+      "to": "/blog/using-backuppc-to-archive-backups-via-sftp",
+      "status": "301"
+    },
+    {
+      "from": "/blog/using-the-gpg-renderer-to-protect-salt-pillar-items.html",
+      "to": "/blog/using-the-gpg-renderer-to-protect-salt-pillar-items",
+      "status": "301"
+    },
+    {
+      "from": "/blog/using-the-windows-key-to-open-xfce-application-menu.html",
+      "to": "/blog/using-the-windows-key-to-open-xfce-application-menu",
+      "status": "301"
+    },
+    {
+      "from": "/blog/using-windows-key-combinations-in-xfce.html",
+      "to": "/blog/using-windows-key-combinations-in-xfce",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-april-8-2011.html",
+      "to": "/blog/weekly-review-week-ending-april-8-2011",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-august-5-2011.html",
+      "to": "/blog/weekly-review-week-ending-august-5-2011",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-dec-13-2009.html",
+      "to": "/blog/weekly-review-week-ending-dec-13-2009",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-dec-19-2010.html",
+      "to": "/blog/weekly-review-week-ending-dec-19-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-dec-20-2009.html",
+      "to": "/blog/weekly-review-week-ending-dec-20-2009",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-dec-27-2009.html",
+      "to": "/blog/weekly-review-week-ending-dec-27-2009",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-dec-6-2009.html",
+      "to": "/blog/weekly-review-week-ending-dec-6-2009",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-december-31-2010.html",
+      "to": "/blog/weekly-review-week-ending-december-31-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-february-11-2011.html",
+      "to": "/blog/weekly-review-week-ending-february-11-2011",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-february-16-2013.html",
+      "to": "/blog/weekly-review-week-ending-february-16-2013",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-february-18-2011.html",
+      "to": "/blog/weekly-review-week-ending-february-18-2011",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-february-25-2011.html",
+      "to": "/blog/weekly-review-week-ending-february-25-2011",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-july-11-2010.html",
+      "to": "/blog/weekly-review-week-ending-july-11-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-july-14-2012.html",
+      "to": "/blog/weekly-review-week-ending-july-14-2012",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-july-18-2010.html",
+      "to": "/blog/weekly-review-week-ending-july-18-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-july-25-2010.html",
+      "to": "/blog/weekly-review-week-ending-july-25-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-march-25-2011.html",
+      "to": "/blog/weekly-review-week-ending-march-25-2011",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-may-02-2010.html",
+      "to": "/blog/weekly-review-week-ending-may-02-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-nov-29-2009.html",
+      "to": "/blog/weekly-review-week-ending-nov-29-2009",
+      "status": "301"
+    },
+    {
+      "from": "/blog/weekly-review-week-ending-november-14-2010.html",
+      "to": "/blog/weekly-review-week-ending-november-14-2010",
+      "status": "301"
+    },
+    {
+      "from": "/blog/whats-new-in-telligent-community-50.html",
+      "to": "/blog/whats-new-in-telligent-community-50",
+      "status": "301"
+    },
+    {
+      "from": "/blog/why-dont-browsers-ship-with-jquery.html",
+      "to": "/blog/why-dont-browsers-ship-with-jquery",
+      "status": "301"
+    },
+    {
+      "from": "/blog/why-i-avoid-sugar.html",
+      "to": "/blog/why-i-avoid-sugar",
+      "status": "301"
+    },
+    {
+      "from": "/blog/workaround-jungle-disk-restore-problems.html",
+      "to": "/blog/workaround-jungle-disk-restore-problems",
+      "status": "301"
+    },
+    {
+      "from": "/blog/zend-opcache-for-php-on-smartos.html",
+      "to": "/blog/zend-opcache-for-php-on-smartos",
+      "status": "301"
+    },
+    {
+      "from": "/cv.html",
+      "to": "/cv",
+      "status": "301"
+    },
+    {
+      "from": "/index",
+      "to": "/",
+      "status": "301!"
+    },
+    {
+      "from": "/index.html",
+      "to": "/",
+      "status": "301!"
+    },
+    {
+      "from": "/links/friends.html",
+      "to": "/links/friends",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.apartment.gardinbusser/index.html",
+      "to": "/notes/gardinbusser",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.apartment.handymen-denmark/index.html",
+      "to": "/notes/handymen-denmark",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.cyberduck/index.html",
+      "to": "/notes/cyberduck",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.double-commander/index.html",
+      "to": "/notes/double-commander",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.expandrive/index.html",
+      "to": "/notes/expandrive",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.foxit-phantompdf/index.html",
+      "to": "/notes/foxit-phantompdf",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.neovim/index.html",
+      "to": "/notes/neovim",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.operating-systems.truenas-scale/index.html",
+      "to": "/notes/truenas-scale",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.powershell/index.html",
+      "to": "/notes/microsoft-powershell",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.systemd/index.html",
+      "to": "/notes/systemd",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.tmux/index.html",
+      "to": "/notes/tmux",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.total-commander/index.html",
+      "to": "/notes/total-commander",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.unix-shells.bash/index.html",
+      "to": "/notes/bash",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.unix-shells.zsh/index.html",
+      "to": "/notes/zsh",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.vi/index.html",
+      "to": "/notes/vim",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.window-managers.i3/index.html",
+      "to": "/notes/i3",
+      "status": "301"
+    },
+    {
+      "from": "/notes/r.tech.software.zoho-mail/index.html",
+      "to": "/notes/zoho-mail",
+      "status": "301"
+    },
+    {
+      "from": "/notes/tags.loc.hvidovre/index.html",
+      "to": "/notes/hvidovre",
+      "status": "301"
+    }
+  ],
+  "wordpress": {
+    "60": "/blog/weekly-review-week-ending-may-02-2010",
+    "70": "/blog/meta-description-dos-and-donts",
+    "72": "/blog/export-exchange-mailbox-to-pst",
+    "76": "/blog/map-of-fitness24seven-locations",
+    "80": "/blog/finding-small-freelance-translation-jobs",
+    "82": "/blog/slow-amazon-ec2-rsync-scp-sftp-upload-speeds",
+    "84": "/blog/backing-up-to-amazon-aws",
+    "86": "/blog/weekly-review-week-ending-dec-27-2009",
+    "88": "/blog/sort-ls-output-by-date-ascending",
+    "90": "/blog/weekly-review-week-ending-dec-20-2009",
+    "92": "/blog/weekly-review-week-ending-dec-13-2009",
+    "96": "/blog/weekly-review-week-ending-dec-6-2009",
+    "98": "/blog/get-metadata-about-mysql-databases",
+    "100": "/blog/does-your-communityserver-have-spam-profiles",
+    "102": "/blog/weekly-review-week-ending-nov-29-2009",
+    "104": "/blog/error-1307-hy000-failed-to-create-procedure",
+    "106": "/blog/the-application-cannot-start-running-visual-studio-as-administrator",
+    "108": "/blog/installing-updates-on-solaris-10-from-the-command-line",
+    "114": "/blog/improve-your-iphone-3gs-battery-life",
+    "118": "/blog/monitoring-open-network-connections-and-listening-ports-debian-lenny",
+    "120": "/blog/disable-port-5353-usage-debian-lenny-after-installing-sun-java-jre",
+    "122": "/blog/file-copy-error-after-activating-drupal-translation",
+    "124": "/blog/comparing-content-delivery-networks",
+    "131": "/blog/convert-ssl-certificate-from-apache-to-iis",
+    "133": "/blog/whats-new-in-telligent-community-50",
+    "140": "/blog/disable-most-visited-in-new-tabs-in-firefox-3",
+    "142": "/blog/count-files-in-a-folder-recursively",
+    "144": "/blog/how-to-build-a-db9-to-rj45-serial-cable",
+    "148": "/blog/accidentally-removed-user-login-block-in-drupal",
+    "150": "/blog/less-verbose-server-response-header-from-apache",
+    "152": "/blog/run-a-command-in-all-non-global-solaris-zones",
+    "156": "/blog/configuring-sendmail-on-solaris-10-to-use-a-smart-host",
+    "160": "/blog/removing-search-this-site-from-the-search-block-in-drupal-6",
+    "254": "/blog/a-user-friendly-and-fast-linux-for-netbooks",
+    "258": "/blog/drop-caps-in-thesis",
+    "261": "/blog/thesis-customizations-i-like",
+    "267": "/blog/why-i-avoid-sugar",
+    "270": "/blog/lease-net-development-tools",
+    "295": "/blog/migrating-a-bunch-of-wordpress-blogs-to-a-single-wordpress-3-multi-site-installation",
+    "308": "/blog/weekly-review-week-ending-july-11-2010",
+    "311": "/blog/weekly-review-week-ending-july-18-2010",
+    "323": "/blog/weekly-review-week-ending-july-25-2010",
+    "332": "/blog/communityserver-2008-5-blogs-api-reference",
+    "334": "/blog/weekly-review-week-ending-november-14-2010",
+    "353": "/blog/weekly-review-week-ending-dec-19-2010",
+    "361": "/blog/weekly-review-week-ending-december-31-2010",
+    "368": "/blog/workaround-jungle-disk-restore-problems",
+    "373": "/blog/debugging-pyramid-with-pycharm",
+    "376": "/blog/online-mindmapping-services-compared",
+    "381": "/blog/weekly-review-week-ending-february-11-2011",
+    "386": "/blog/microsoft-online-services",
+    "388": "/blog/weekly-review-week-ending-february-18-2011",
+    "390": "/blog/weekly-review-week-ending-february-25-2011",
+    "396": "/blog/list-of-source-code-hosting-services",
+    "400": "/blog/is-linux-mint-adware",
+    "403": "/blog/why-dont-browsers-ship-with-jquery",
+    "405": "/blog/weekly-review-week-ending-march-25-2011",
+    "409": "/blog/the-workplace-of-the-future",
+    "410": "/blog/colour-catcher-review",
+    "418": "/blog/weekly-review-week-ending-april-8-2011",
+    "422": "/blog/rsync-between-network-drives",
+    "424": "/blog/coffeescript-support-for-jetbrains-phpstorm-webstorm-pycharm",
+    "429": "/blog/flickr-backup-tools",
+    "432": "/blog/personalize-your-googleplus-url",
+    "434": "/blog/skype-as-a-sip-gateway",
+    "436": "/blog/weekly-review-week-ending-august-5-2011",
+    "438": "/blog/the-last-year-of-your-life",
+    "440": "/blog/richard-bach-out-of-my-mind",
+    "443": "/blog/programming-and-productivity-publications",
+    "448": "/blog/inbox-zero-notes",
+    "452": "/blog/hiring-on-freelance-sites",
+    "470": "/blog/weekly-review-week-ending-july-14-2012",
+    "490": "/blog/apache-segmentation-fault-after-enabling-ssl",
+    "492": "/blog/appfog-command-line-tool-support-for-jetbrains-ides",
+    "497": "/blog/installing-caldecott-on-windows",
+    "502": "/blog/minimize-almost-any-window-to-the-systray",
+    "504": "/blog/smartos-configuration-notes",
+    "509": "/blog/weekly-review-week-ending-february-16-2013",
+    "513": "/blog/autohotkey-mousemove-not-working-in-virtualbox",
+    "516": "/blog/my-first-open-source-commit",
+    "521": "/blog/public-transport-in-sweden",
+    "524": "/blog/news-and-radio-from-sweden",
+    "526": "/blog/holiday-in-sweden",
+    "528": "/blog/everyday-shopping-in-sweden",
+    "530": "/blog/moving-to-sweden-mostly-for-danes",
+    "532": "/blog/living-in-sweden",
+    "535": "/blog/swedish-language",
+    "539": "/blog/check-for-wordpress-updates-from-the-outside",
+    "541": "/blog/diigo-backup-script",
+    "544": "/blog/backup-jenkins-configuration-to-s3",
+    "548": "/blog/zend-opcache-for-php-on-smartos",
+    "555": "/blog/cheaper-than-locally-ordering-food-online-in-sweden",
+    "558": "/blog/omnios-openindiana-ips-repositories",
+    "576": "/blog/cant-leave-eq2-dungeon-maker",
+    "591": "/blog/a-nicer-vmadm-list-for-smartos",
+    "598": "/blog/installing-software-on-pc-bsd-9-2-for-dummies",
+    "599": "/blog/my-hardware-and-os-history",
+    "605": "/blog/using-the-windows-key-to-open-xfce-application-menu",
+    "607": "/blog/converting-mercurial-repositories-to-git",
+    "609": "/blog/installing-couchbase-2-1-1-on-centos-6-4",
+    "637": "/blog/keyboard-shortcut-to-delete-files-in-nautilus",
+    "642": "/blog/use-root-path-for-sudo-on-freebsd",
+    "648": "/blog/try-this-search-on-google-for-startpagecom",
+    "652": "/blog/fix-for-python-path-on-smartos",
+    "659": "/blog/faster-iphone-tethering-with-manjaro",
+    "664": "/blog/restarting-spideroak-after-switching-networks",
+    "667": "/blog/deactivate-xscreensaver-via-ssh",
+    "669": "/blog/troubleshooting-linux-sound-problems",
+    "674": "/blog/using-windows-key-combinations-in-xfce",
+    "677": "/blog/manjaro-openbox-right-click-menu-as-root",
+    "679": "/blog/backing-up-freebsd-jails-using-amanda",
+    "719": "/blog/using-backuppc-to-archive-backups-via-sftp",
+    "730": "/blog/freebsd-hangs-during-boot-with-usb-drives-attached",
+    "735": "/blog/easy-firewall-setup-for-manjaro-linux",
+    "741": "/blog/django-app-as-facebook-canvas-app",
+    "751": "/blog/running-postgresql-9-3-in-an-ezjail",
+    "756": "/blog/error-404-updating-kali-linux",
+    "760": "/blog/add-manjaro-openbox-flavor-to-manjaro-xfce",
+    "767": "/blog/power-management-under-i3-on-arch-linux",
+    "773": "/blog/inspecting-a-kendo-ui-datepicker-for-theming",
+    "775": "/blog/customer-service-done-right",
+    "777": "/blog/running-plunker-in-ie9",
+    "779": "/blog/bad-gateway-with-nginx-php-fpm-using-freebsd-socket",
+    "783": "/blog/portmaster-a-upgrades-db48-repeatedly",
+    "785": "/blog/set-environment-variable-for-one-command-with-csh",
+    "787": "/blog/running-backuppc-with-lighttpd-instead-of-apache",
+    "791": "/blog/gamify-your-life",
+    "794": "/blog/positive-passwords",
+    "796": "/blog/repairing-outlook-pst-files",
+    "798": "/blog/uninstall-asus-screen-saver",
+    "800": "/blog/saving-space-on-hybrids-how-to-move-the-documents-or-profile-folder",
+    "808": "/blog/percona-server-not-starting-in-jail-after-upgrading-freebsd-host-from-9-2-to-9-3",
+    "818": "/blog/toggl-command-line-on-windows",
+    "820": "/blog/typeerror-cannot-read-property-browserify-of-undefined",
+    "822": "/blog/freebsd-hangs-on-reboot-on-digitalocean",
+    "825": "/blog/installing-lastpass-on-freebsd",
+    "828": "/blog/running-postgresql-in-iocage-managed-jail-on-freebsd-10-2-release",
+    "830": "/blog/manjaro-xfce-default-display-manager",
+    "834": "/blog/installing-tarsnap-on-linux-mint-17-3",
+    "846": "/blog/shutdown-htpc-from-vera-controller",
+    "851": "/blog/creating-a-gce-instance-from-a-shared-image-using-salt-cloud",
+    "856": "/blog/updating-to-latest-pass-on-ubuntu-14-04",
+    "858": "/blog/using-the-gpg-renderer-to-protect-salt-pillar-items",
+    "864": "/blog/page-constantly-reloads-after-logging-in-to-outlook-on-the-web",
+    "873": "/blog/scrapy-example-posts-from-ongoingworlds",
+    "875": "/blog/analyzing-ongoingworlds-posts"
+  }
+}
