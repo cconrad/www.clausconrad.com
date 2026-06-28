@@ -52,7 +52,9 @@ const showGraph = hood.nodes.length > 1
   .notes-aside {
     margin-top: 1.5rem;
     border-top: 1px solid var(--sl-color-gray-6);
-    padding-top: 1rem;
+    /* §12: match the padding Starlight gives its "On this page" panel
+       (.right-sidebar-panel) so the Local graph / Backlinks sections line up. */
+    padding: 1rem var(--sl-sidebar-pad-x);
   }
   /* §11: at >=72rem the right sidebar is position:fixed and full viewport width,
      so a width:100% child (the graph canvas) would span the whole viewport and
