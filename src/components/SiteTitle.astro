@@ -1,7 +1,8 @@
 ---
-// Keep the owner's photo at the top of the site (§7). Served from the single
-// /assets tree (passthrough, unhashed — §6.3), not Astro's hashed pipeline.
-const { siteTitle } = Astro.locals.starlightRoute
+// Owner's photo + wordmark at the top of the site (§7). The wordmark is a fixed
+// brand string (§5), shown in the regular text colour rather than the link
+// accent. Photo is served from the single /assets tree (passthrough, unhashed —
+// §6.3), not Astro's hashed pipeline.
 ---
 
 <a href="/" class="site-title">
@@ -12,7 +13,7 @@ const { siteTitle } = Astro.locals.starlightRoute
     height="36"
     class="site-title__photo"
   />
-  <span class="site-title__text">{siteTitle}</span>
+  <span class="site-title__text">{"{ claus.conrad }"}</span>
 </a>
 
 <style>
@@ -20,7 +21,7 @@ const { siteTitle } = Astro.locals.starlightRoute
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    color: var(--sl-color-text-accent);
+    color: var(--sl-color-text);
     font-size: var(--sl-text-h4);
     font-weight: 600;
     text-decoration: none;
