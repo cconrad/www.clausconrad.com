@@ -11,13 +11,18 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
       # Generate Astro/Starlight types (astro:content) so tsc can resolve them.
+      # CI intentionally skips the private vault, so add one throwaway doc to
+      # keep Starlight's docs loader quiet during sync.
+      - run: |
+          mkdir -p src/content/docs
+          printf '%s\n' '---' 'title: CI placeholder' '---' > src/content/docs/index.md
       - run: npx astro sync
       - run: npx tsc --noEmit
       - run: npx prettier . --check

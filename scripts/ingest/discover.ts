@@ -32,7 +32,7 @@ export interface DiscoverResult {
  * Discover all source Markdown across both roots (§3.1):
  * - files under `<siteFolder>/` → site root (mirrors folder path)
  * - everything else → notes root (flattened to /notes)
- * Reads + parses frontmatter for each (gray-matter). A file with unparseable
+ * Reads + parses frontmatter for each source file. A file with unparseable
  * frontmatter is recorded in `parseErrors` and skipped (surfaced by the caller)
  * so a single malformed file can't break the whole build.
  */

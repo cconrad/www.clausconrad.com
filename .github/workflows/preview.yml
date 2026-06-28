@@ -15,17 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout site
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Checkout content (private vault)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: cconrad/obsidian-personal
           token: ${{ secrets.GH_PAT_READ_OBSIDIAN_PERSONAL }}
           path: .obsidian-content
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
           cache: npm

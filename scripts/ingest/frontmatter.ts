@@ -1,17 +1,12 @@
-import matter from "gray-matter"
 import yaml from "js-yaml"
 
 /**
- * gray-matter YAML engine configured for resilience over a large vault:
+ * YAML frontmatter parsing configured for resilience over a large vault:
  * `json: true` tolerates duplicate mapping keys (last wins) instead of throwing,
  * which a few real notes contain (e.g. a doubled `aliases:`). Genuine syntax
  * errors still throw and are surfaced per-file by the caller.
  */
-const matterOptions = {
-  engines: {
-    yaml: (s: string) => yaml.load(s, { json: true }) as object,
-  },
-} as const
+const frontmatterPattern = /^(?:\uFEFF)?---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*\r?\n?/
 
 /**
  * The ONLY frontmatter keys that may survive from source into output (§3.4).
@@ -39,8 +34,21 @@ export function parseFrontmatter(raw: string): {
   data: Record<string, unknown>
   body: string
 } {
-  const parsed = matter(raw, matterOptions)
-  return { data: (parsed.data ?? {}) as Record<string, unknown>, body: parsed.content }
+  const match = raw.match(frontmatterPattern)
+  if (!match) return { data: {}, body: raw.replace(/^\uFEFF/, "") }
+
+  const parsed = yaml.load(match[1], { json: true })
+  const data =
+    parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? (parsed as Record<string, unknown>)
+      : {}
+  return { data, body: raw.slice(match[0].length) }
+}
+
+/** Serialize a Markdown body with YAML frontmatter. */
+export function stringifyFrontmatter(body: string, data: Record<string, unknown>): string {
+  const frontmatter = yaml.dump(data, { lineWidth: -1, noRefs: true }).trimEnd()
+  return `---\n${frontmatter}\n---\n${body}`
 }
 
 /** A page is published iff frontmatter `published === true` (universal gate, A1). */

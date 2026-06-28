@@ -1,7 +1,7 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
-import matter from "gray-matter"
 import { computeDates } from "./dates.ts"
+import { stringifyFrontmatter } from "./frontmatter.ts"
 import { resolveDates, type GitDates } from "./gitDates.ts"
 import { computeExcerpt, plainText, readingMinutes, wordCount } from "./meta.ts"
 import type { ResolvedDoc } from "./types.ts"
@@ -76,7 +76,7 @@ export function buildEmittedFrontmatter(
 
 /** Serialize one doc to a Markdown string with normalized frontmatter. */
 export function renderDoc(doc: ResolvedDoc, gitDates?: GitDates): string {
-  return matter.stringify(doc.body, buildEmittedFrontmatter(doc, gitDates))
+  return stringifyFrontmatter(doc.body, buildEmittedFrontmatter(doc, gitDates))
 }
 
 /** Emit all resolved docs into the Starlight `docs` collection, replacing prior output. */

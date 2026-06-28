@@ -1,4 +1,4 @@
-import graphData from "../data/graph.json"
+import { existsSync, readFileSync } from "node:fs"
 
 export interface GraphNode {
   url: string
@@ -15,7 +15,15 @@ interface Graph {
   backlinks: Record<string, string[]>
 }
 
-export const graph = graphData as Graph
+const emptyGraph: Graph = { nodes: [], edges: [], backlinks: {} }
+
+function loadGraph(): Graph {
+  const graphUrl = new URL("../data/graph.json", import.meta.url)
+  if (!existsSync(graphUrl)) return emptyGraph
+  return JSON.parse(readFileSync(graphUrl, "utf8")) as Graph
+}
+
+export const graph = loadGraph()
 const byUrl = new Map(graph.nodes.map((n) => [n.url, n]))
 
 /** Pages that link TO `url` (backlinks, §10.2), resolved to nodes. */
