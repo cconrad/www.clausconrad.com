@@ -24,24 +24,26 @@ const showGraph = hood.nodes.length > 1
 {
   (showGraph || backlinks.length > 0) && (
     <div class="notes-aside">
-      {showGraph && (
-        <section>
-          <h2 class="notes-aside__heading">Local graph</h2>
-          <LocalGraph nodes={hood.nodes} links={hood.links} current={url} />
-        </section>
-      )}
-      {backlinks.length > 0 && (
-        <section>
-          <h2 class="notes-aside__heading">Backlinks</h2>
-          <ul class="notes-aside__backlinks">
-            {backlinks.map((b) => (
-              <li>
-                <a href={b.url}>{b.title}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <div class="notes-aside__panel">
+        {showGraph && (
+          <section>
+            <h2 class="notes-aside__heading">Local graph</h2>
+            <LocalGraph nodes={hood.nodes} links={hood.links} current={url} />
+          </section>
+        )}
+        {backlinks.length > 0 && (
+          <section>
+            <h2 class="notes-aside__heading">Backlinks</h2>
+            <ul class="notes-aside__backlinks">
+              {backlinks.map((b) => (
+                <li>
+                  <a href={b.url}>{b.title}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
     </div>
   )
 }
@@ -51,6 +53,23 @@ const showGraph = hood.nodes.length > 1
     margin-top: 1.5rem;
     border-top: 1px solid var(--sl-color-gray-6);
     padding-top: 1rem;
+  }
+  /* §11: at >=72rem the right sidebar is position:fixed and full viewport width,
+     so a width:100% child (the graph canvas) would span the whole viewport and
+     zoomToFit would frame the nodes off-screen. Constrain the panel to the same
+     visible column width Starlight gives its TOC (.sl-container) so the graph
+     frames inside the sidebar. */
+  .notes-aside__panel {
+    width: 100%;
+  }
+  @media (min-width: 72rem) {
+    .notes-aside__panel {
+      width: calc(var(--sl-sidebar-width) - 2 * var(--sl-sidebar-pad-x));
+      max-width: calc(
+        (100vw - var(--sl-sidebar-width) - 2 * var(--sl-content-pad-x) - 2 * var(--sl-sidebar-pad-x)) *
+          0.25
+      );
+    }
   }
   .notes-aside__heading {
     font-size: var(--sl-text-h5);
