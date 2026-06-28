@@ -19,7 +19,11 @@ function iframe(id: string, title: string): string {
 
 /** Operates on code-masked text. */
 export function transformYouTube(input: string): string {
-  return input.replace(YT_IMAGE, (_full, title: string, _url: string, id: string) =>
-    iframe(id, title ?? ""),
+  // Surround the emitted block-level <div> with blank lines: an HTML block that
+  // isn't followed by a blank line swallows the subsequent Markdown (e.g. the
+  // text after the video), leaving it unparsed (§10).
+  return input.replace(
+    YT_IMAGE,
+    (_full, title: string, _url: string, id: string) => `\n\n${iframe(id, title ?? "")}\n\n`,
   )
 }
