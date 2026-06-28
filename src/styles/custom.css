@@ -7,6 +7,16 @@
   color: #312e81;
 }
 
+/* §7 follow-up: recolour the remaining accent-blue controls to #312e81 too — the
+   social icons, the page-sidebar TOC current item, and the mobile search Cancel
+   button (all use --sl-color-text-accent). Links that aren't blue (e.g. the left
+   sidebar menu, inactive TOC links) keep their colour. */
+.social-icons a,
+.right-sidebar-panel a[aria-current="true"],
+button[data-close-modal] {
+  color: #312e81;
+}
+
 /* §8: below Starlight's wide breakpoint (72rem) the right sidebar stops being a
    fixed right-hand column and stacks in normal flow — by source order that puts
    our Local graph / Backlinks panel ABOVE the content. Re-order it to sit BELOW
