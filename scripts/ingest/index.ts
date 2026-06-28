@@ -48,7 +48,15 @@ function main(): void {
 
   console.log(`[ingest] source: ${config.obsidianDir}`)
 
-  const { docs: sources, parseErrors } = discover(config.obsidianDir, config.siteFolder)
+  const { docs: discovered, parseErrors } = discover(config.obsidianDir, config.siteFolder)
+
+  // §2: the front-page intro lives in the vault (clausconrad.com/home.md) so the
+  // owner can edit it without touching source. Pull it out of the page set (it is
+  // never emitted as a standalone page) and stage its body for the home page.
+  const homeIntroRel = `${config.siteFolder}/home.md`
+  const homeIntro = discovered.find((s) => s.repoRelPath === homeIntroRel)
+  const sources = homeIntro ? discovered.filter((s) => s !== homeIntro) : discovered
+
   const notesSources = sources.filter((s) => s.root === "notes")
   const siteSources = sources.filter((s) => s.root === "site")
   console.log(
@@ -110,6 +118,13 @@ function main(): void {
   const graph = buildGraph(transformed)
   mkdirSync(config.dataDir, { recursive: true })
   writeFileSync(join(config.dataDir, "graph.json"), JSON.stringify(graph), "utf8")
+
+  // §2: front-page intro Markdown → src/data/homeIntro.gen.md (rendered by the
+  // home page). Absent when the vault has no clausconrad.com/home.md (the page
+  // then falls back to its default title).
+  if (homeIntro) {
+    writeFileSync(join(config.dataDir, "homeIntro.gen.md"), homeIntro.body.trim() + "\n", "utf8")
+  }
 
   // Notes sidebar tree from `in` (§10.3) → src/data/notesSidebar.gen.json.
   const { sidebar, warnings: sidebarWarnings } = buildNotesSidebar(transformed)
