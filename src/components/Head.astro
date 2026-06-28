@@ -32,6 +32,14 @@ const jsonLd = buildJsonLd({
   created: data.created,
   updated: data.updated,
 })
+
+// §3.1 exception: when the page title equals the site title (the home page),
+// Starlight would render "<title>Claus Conrad | Claus Conrad" — collapse it so
+// the name shows only once.
+if (data.title === route.siteTitle) {
+  const titleTag = route.head.find((t) => t.tag === 'title')
+  if (titleTag) titleTag.content = route.siteTitle
+}
 ---
 
 <Default><slot /></Default>
