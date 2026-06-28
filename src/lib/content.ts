@@ -2,8 +2,8 @@ import { getCollection, type CollectionEntry } from "astro:content"
 
 export type Doc = CollectionEntry<"docs">
 
-/** Blog pagination size (A3) — matches the old Eleventy `/page2…/pageN` set. */
-export const PAGE_SIZE = 5
+/** Links per index page (§3). Mirror this in scripts/ingest/index.ts (pageN count). */
+export const PAGE_SIZE = 25
 
 /** Category → tag mapping (§9.2), in menu order. */
 export const CATEGORIES = [

@@ -135,7 +135,8 @@ function main(): void {
   const streamCount = transformed.filter(
     (d) => (d.kind === "blog" || d.kind === "note") && d.url !== "/notes",
   ).length
-  const blogPageCount = Math.max(1, Math.ceil(streamCount / 5))
+  // Keep in sync with PAGE_SIZE in src/lib/content.ts (§3).
+  const blogPageCount = Math.max(1, Math.ceil(streamCount / 25))
   const redir = emitRedirects({
     repoRoot,
     publicDir: config.publicDir,
