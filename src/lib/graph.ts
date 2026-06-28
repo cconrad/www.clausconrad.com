@@ -1,5 +1,3 @@
-import { existsSync, readFileSync } from "node:fs"
-
 export interface GraphNode {
   url: string
   title: string
@@ -18,9 +16,11 @@ interface Graph {
 const emptyGraph: Graph = { nodes: [], edges: [], backlinks: {} }
 
 function loadGraph(): Graph {
-  const graphUrl = new URL("../data/graph.json", import.meta.url)
-  if (!existsSync(graphUrl)) return emptyGraph
-  return JSON.parse(readFileSync(graphUrl, "utf8")) as Graph
+  const modules = import.meta.glob<Graph>("../data/graph.json", {
+    eager: true,
+    import: "default",
+  })
+  return modules["../data/graph.json"] ?? emptyGraph
 }
 
 export const graph = loadGraph()
