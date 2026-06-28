@@ -8,7 +8,7 @@ name: Deploy
 # read access to the full private vault.
 #
 # Required secrets:
-#   OBSIDIAN_REPO_TOKEN   — read access to cconrad/obsidian-personal
+#   GH_PAT_READ_OBSIDIAN_PERSONAL — read access to cconrad/obsidian-personal
 #   CLOUDFLARE_API_TOKEN  — Cloudflare Pages: Edit
 #   CLOUDFLARE_ACCOUNT_ID — Cloudflare account id
 on:
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: cconrad/obsidian-personal
-          token: ${{ secrets.OBSIDIAN_REPO_TOKEN }}
+          token: ${{ secrets.GH_PAT_READ_OBSIDIAN_PERSONAL }}
           path: .obsidian-content
           fetch-depth: 0 # full history for git Created/Updated dates (§13)
 
@@ -61,4 +61,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # Deploys dist/ as static assets and bundles ./functions (WordPress
           # ?p=NNN redirects, §11).
-          command: pages deploy dist --project-name=clausconrad-com --branch=main
+          command: pages deploy dist --branch=main
