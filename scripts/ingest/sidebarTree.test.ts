@@ -87,6 +87,24 @@ describe("buildNotesSidebar (§10.3)", () => {
     expect(warnings.length).toBeGreaterThan(0)
   })
 
+  it("groupOnly: parent with children renders no self-link, only its children", () => {
+    const parent = note("Top Level")
+    parent.data.groupOnly = true
+    const { sidebar } = buildNotesSidebar([parent, note("Child", ["[[Top Level]]"], "child")])
+    const top = find(sidebar.items, "Top Level")
+    expect(isGroup(top)).toBe(true)
+    // No self-link entry: the only item is the child.
+    expect(isGroup(top) && find(top.items, "Top Level")).toBeFalsy()
+    expect(isGroup(top) && top.items).toEqual([{ label: "Child", link: "/notes/child" }])
+  })
+
+  it("groupOnly: has no effect on a childless note", () => {
+    const solo = note("Solo")
+    solo.data.groupOnly = true
+    const { sidebar } = buildNotesSidebar([solo])
+    expect(find(sidebar.items, "Solo")).toEqual({ label: "Solo", link: "/notes/solo" })
+  })
+
   it("label falls back to stem when no title", () => {
     const n = note("My Note")
     n.data = { in: undefined } // no title

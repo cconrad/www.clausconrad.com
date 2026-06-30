@@ -28,7 +28,10 @@ export function parseParents(inVal: unknown): string[] {
  * - Multi-parent: a note appears under EACH parent.
  * - Cycle guard: ancestors block re-entry; notes reachable only via a cycle are
  *   promoted to roots (deterministically) and reported — never infinite-loop.
- * A note with children is a group whose first item is a link to the note itself.
+ * A note with children is a group whose first item is a link to the note itself,
+ * unless the note sets `groupOnly: true` — then the group has no self-link and is
+ * a pure container. (The page stays published and reachable by URL; only its
+ * sidebar self-entry is suppressed.) `groupOnly` has no effect on a childless note.
  */
 export function buildNotesSidebar(notes: ResolvedDoc[]): {
   sidebar: SidebarGroup
@@ -91,10 +94,11 @@ export function buildNotesSidebar(notes: ResolvedDoc[]): {
       .sort(byLabel)
     if (!kids.length) return { label, link: url }
     const next = new Set(ancestors).add(url)
+    const selfLink: SidebarEntry[] = n.data.groupOnly === true ? [] : [{ label, link: url }]
     return {
       label,
       collapsed: true,
-      items: [{ label, link: url }, ...kids.map((c) => node(c, next))],
+      items: [...selfLink, ...kids.map((c) => node(c, next))],
     }
   }
 
