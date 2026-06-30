@@ -18,6 +18,7 @@ export const ALLOWLIST = [
   "published",
   "slug",
   "in",
+  "groupOnly",
   "website",
   "title",
   "desc",
