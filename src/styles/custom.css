@@ -31,3 +31,16 @@ button[data-close-modal] {
     order: 2;
   }
 }
+
+/* §8.5: YouTube embeds fill the content column width but never exceed it. The
+   iframe defaults to ~300×150; constrain it to 100% of the wrapper and lock a
+   16:9 box so the height tracks the responsive width. */
+.youtube-embed {
+  width: 100%;
+}
+.youtube-embed iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
